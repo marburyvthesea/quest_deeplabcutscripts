@@ -1,0 +1,32 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20/config.yaml
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+0it [00:00, ?it/s]1it [00:04,  4.30s/it]2it [00:04,  3.10s/it]3it [00:04,  2.26s/it]4it [00:05,  1.66s/it]5it [00:05,  1.25s/it]6it [00:05,  1.04it/s]7it [00:06,  1.32it/s]8it [00:06,  1.63it/s]9it [00:06,  1.94it/s]10it [00:06,  2.24it/s]11it [00:07,  2.55it/s]12it [00:07,  2.85it/s]13it [00:07,  3.09it/s]14it [00:07,  3.30it/s]15it [00:08,  3.44it/s]16it [00:08,  3.57it/s]17it [00:08,  3.64it/s]18it [00:08,  3.73it/s]19it [00:09,  3.76it/s]20it [00:09,  3.81it/s]
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:01<00:28,  1.49s/it] 10%|█         | 2/20 [00:03<00:27,  1.51s/it] 15%|█▌        | 3/20 [00:04<00:25,  1.51s/it] 20%|██        | 4/20 [00:05<00:23,  1.47s/it] 25%|██▌       | 5/20 [00:07<00:22,  1.47s/it] 30%|███       | 6/20 [00:08<00:20,  1.43s/it] 35%|███▌      | 7/20 [00:10<00:19,  1.53s/it] 40%|████      | 8/20 [00:11<00:17,  1.49s/it] 45%|████▌     | 9/20 [00:13<00:18,  1.65s/it] 50%|█████     | 10/20 [00:15<00:16,  1.64s/it] 55%|█████▌    | 11/20 [00:17<00:14,  1.58s/it] 60%|██████    | 12/20 [00:18<00:12,  1.54s/it] 65%|██████▌   | 13/20 [00:19<00:10,  1.50s/it] 70%|███████   | 14/20 [00:21<00:08,  1.47s/it] 75%|███████▌  | 15/20 [00:22<00:07,  1.44s/it] 80%|████████  | 16/20 [00:24<00:05,  1.48s/it] 85%|████████▌ | 17/20 [00:25<00:04,  1.45s/it] 90%|█████████ | 18/20 [00:26<00:02,  1.43s/it] 95%|█████████▌| 19/20 [00:28<00:01,  1.51s/it]100%|██████████| 20/20 [00:30<00:00,  1.47s/it]
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20/evaluation-results/  already exists!
+Running  DLC_resnet50_bottom_tracking_openfield_HD_01Aug20shuffle1_300000  with # of trainingiterations: 300000
+Initializing ResNet
+Analyzing data...
+Done and results stored for snapshot:  snapshot-300000
+Results for 300000  training iterations: 95 1 train error: 7.04 pixels. Test error: 2.92  pixels.
+With pcutoff of 0.6  train error: 3.56 pixels. Test error: 2.92 pixels
+Thereby, the errors are given by the average distances between the labels by DLC and the scorer.
+Plotting...
+/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20/evaluation-results/iteration-0/bottom_tracking_openfield_HD_01Aug20-trainset95shuffle1/LabeledImages_DLC_resnet50_bottom_tracking_openfield_HD_01Aug20shuffle1_300000_snapshot-300000  already exists!
+The network is evaluated and the results are stored in the subdirectory 'evaluation_results'.
+If it generalizes well, choose the best model for prediction and update the config file with the appropriate index for the 'snapshotindex'.
+Use the function 'analyze_video' to make predictions on new videos.
+Otherwise consider retraining the network (see DeepLabCut workflow Fig 2)
+finished evaluating

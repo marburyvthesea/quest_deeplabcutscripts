@@ -1,0 +1,31 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/bottom_tracking_openfield_01-JJM-2020-08-18/config.yaml
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+/projects/p30771/dlc_analysis/bottom_tracking_openfield_01-JJM-2020-08-18/labeled-data/C:\Users\ward5279user\Desktop\acquisition_scripts\acquisition_scripts\07272020_D1mGLuR5_OF_289/CollectedData_JJM.h5  not found (perhaps not annotated)
+Annotation data was not found by splitting video paths (from config['video_sets']). An alternative route is taken...
+The following folders were found: ['.DS_Store', '07272020_D1mGLuR5_OF_289']
+/projects/p30771/dlc_analysis/bottom_tracking_openfield_01-JJM-2020-08-18/labeled-data/.DS_Store/CollectedData_JJM.h5  not found (perhaps not annotated)
+Traceback (most recent call last):
+  File "run_dlc_openfield.py", line 13, in <module>
+    deeplabcut.create_training_dataset(path_config_file)
+  File "/home/jma819/DeepLabCut/deeplabcut/generate_training_dataset/trainingsetmanipulation.py", line 629, in create_training_dataset
+    im = io.imread(os.path.join(cfg['project_path'],filename))
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/skimage/io/_io.py", line 62, in imread
+    img = call_plugin('imread', fname, plugin=plugin, **plugin_args)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/skimage/io/manage_plugins.py", line 214, in call_plugin
+    return func(*args, **kwargs)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/skimage/io/_plugins/pil_plugin.py", line 35, in imread
+    with open(fname, 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/projects/p30771/dlc_analysis/bottom_tracking_openfield_01-JJM-2020-08-18/labeled-data\\07272020_D1mGLuR5_OF_289\\img089652.png'

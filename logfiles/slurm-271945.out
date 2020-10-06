@@ -1,0 +1,449 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20/config.yaml
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Config:
+{'all_joints': [[0], [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11]],
+ 'all_joints_names': ['snout',
+                      'ear_L',
+                      'ear_R',
+                      'front_paw_L',
+                      'front_paw_R',
+                      'rear_paw_L',
+                      'rear_paw_R',
+                      'tail_base',
+                      'arena_UL',
+                      'arena_UR',
+                      'arena_LL',
+                      'arena_LR'],
+ 'batch_size': 1,
+ 'bottomheight': 400,
+ 'crop': True,
+ 'crop_pad': 0,
+ 'cropratio': 0.4,
+ 'dataset': 'training-datasets/iteration-0/UnaugmentedDataSet_bottom_tracking_openfield_HD_01Aug20/bottom_tracking_openfield_HD_01_JJM95shuffle1.mat',
+ 'dataset_type': 'default',
+ 'deterministic': False,
+ 'display_iters': 1000,
+ 'fg_fraction': 0.25,
+ 'global_scale': 0.8,
+ 'init_weights': '/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/models/pretrained/resnet_v1_50.ckpt',
+ 'intermediate_supervision': False,
+ 'intermediate_supervision_layer': 12,
+ 'leftwidth': 400,
+ 'location_refinement': True,
+ 'locref_huber_loss': True,
+ 'locref_loss_weight': 0.05,
+ 'locref_stdev': 7.2801,
+ 'log_dir': 'log',
+ 'max_input_size': 1500,
+ 'mean_pixel': [123.68, 116.779, 103.939],
+ 'metadataset': 'training-datasets/iteration-0/UnaugmentedDataSet_bottom_tracking_openfield_HD_01Aug20/Documentation_data-bottom_tracking_openfield_HD_01_95shuffle1.pickle',
+ 'min_input_size': 64,
+ 'minsize': 100,
+ 'mirror': False,
+ 'multi_step': [[0.005, 10000],
+                [0.02, 430000],
+                [0.002, 730000],
+                [0.001, 1030000]],
+ 'net_type': 'resnet_50',
+ 'num_joints': 12,
+ 'optimizer': 'sgd',
+ 'pos_dist_thresh': 17,
+ 'project_path': '/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20',
+ 'regularize': False,
+ 'rightwidth': 400,
+ 'save_iters': 50000,
+ 'scale_jitter_lo': 0.5,
+ 'scale_jitter_up': 1.25,
+ 'scoremap_dir': 'test',
+ 'shuffle': True,
+ 'snapshot_prefix': '/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20/dlc-models/iteration-0/bottom_tracking_openfield_HD_01Aug20-trainset95shuffle1/train/snapshot',
+ 'stride': 8.0,
+ 'topheight': 400,
+ 'weigh_negatives': False,
+ 'weigh_only_present_joints': False,
+ 'weigh_part_predictions': False,
+ 'weight_decay': 0.0001}
+iteration: 1000 loss: 0.0170 lr: 0.005
+iteration: 2000 loss: 0.0073 lr: 0.005
+iteration: 3000 loss: 0.0058 lr: 0.005
+iteration: 4000 loss: 0.0050 lr: 0.005
+iteration: 5000 loss: 0.0045 lr: 0.005
+iteration: 6000 loss: 0.0042 lr: 0.005
+iteration: 7000 loss: 0.0037 lr: 0.005
+iteration: 8000 loss: 0.0038 lr: 0.005
+iteration: 9000 loss: 0.0035 lr: 0.005
+iteration: 10000 loss: 0.0035 lr: 0.005
+iteration: 11000 loss: 0.0052 lr: 0.02
+iteration: 12000 loss: 0.0042 lr: 0.02
+iteration: 13000 loss: 0.0035 lr: 0.02
+iteration: 14000 loss: 0.0033 lr: 0.02
+iteration: 15000 loss: 0.0031 lr: 0.02
+iteration: 16000 loss: 0.0029 lr: 0.02
+iteration: 17000 loss: 0.0027 lr: 0.02
+iteration: 18000 loss: 0.0027 lr: 0.02
+iteration: 19000 loss: 0.0027 lr: 0.02
+iteration: 20000 loss: 0.0025 lr: 0.02
+iteration: 21000 loss: 0.0025 lr: 0.02
+iteration: 22000 loss: 0.0024 lr: 0.02
+iteration: 23000 loss: 0.0024 lr: 0.02
+iteration: 24000 loss: 0.0023 lr: 0.02
+iteration: 25000 loss: 0.0023 lr: 0.02
+iteration: 26000 loss: 0.0023 lr: 0.02
+iteration: 27000 loss: 0.0020 lr: 0.02
+iteration: 28000 loss: 0.0021 lr: 0.02
+iteration: 29000 loss: 0.0020 lr: 0.02
+iteration: 30000 loss: 0.0020 lr: 0.02
+iteration: 31000 loss: 0.0020 lr: 0.02
+iteration: 32000 loss: 0.0019 lr: 0.02
+iteration: 33000 loss: 0.0018 lr: 0.02
+iteration: 34000 loss: 0.0019 lr: 0.02
+iteration: 35000 loss: 0.0019 lr: 0.02
+iteration: 36000 loss: 0.0018 lr: 0.02
+iteration: 37000 loss: 0.0017 lr: 0.02
+iteration: 38000 loss: 0.0017 lr: 0.02
+iteration: 39000 loss: 0.0017 lr: 0.02
+iteration: 40000 loss: 0.0017 lr: 0.02
+iteration: 41000 loss: 0.0016 lr: 0.02
+iteration: 42000 loss: 0.0016 lr: 0.02
+iteration: 43000 loss: 0.0017 lr: 0.02
+iteration: 44000 loss: 0.0016 lr: 0.02
+iteration: 45000 loss: 0.0016 lr: 0.02
+iteration: 46000 loss: 0.0015 lr: 0.02
+iteration: 47000 loss: 0.0015 lr: 0.02
+iteration: 48000 loss: 0.0015 lr: 0.02
+iteration: 49000 loss: 0.0015 lr: 0.02
+iteration: 50000 loss: 0.0015 lr: 0.02
+iteration: 51000 loss: 0.0014 lr: 0.02
+iteration: 52000 loss: 0.0014 lr: 0.02
+iteration: 53000 loss: 0.0014 lr: 0.02
+iteration: 54000 loss: 0.0014 lr: 0.02
+iteration: 55000 loss: 0.0015 lr: 0.02
+iteration: 56000 loss: 0.0014 lr: 0.02
+iteration: 57000 loss: 0.0013 lr: 0.02
+iteration: 58000 loss: 0.0014 lr: 0.02
+iteration: 59000 loss: 0.0013 lr: 0.02
+iteration: 60000 loss: 0.0013 lr: 0.02
+iteration: 61000 loss: 0.0013 lr: 0.02
+iteration: 62000 loss: 0.0013 lr: 0.02
+iteration: 63000 loss: 0.0013 lr: 0.02
+iteration: 64000 loss: 0.0013 lr: 0.02
+iteration: 65000 loss: 0.0012 lr: 0.02
+iteration: 66000 loss: 0.0012 lr: 0.02
+iteration: 67000 loss: 0.0012 lr: 0.02
+iteration: 68000 loss: 0.0012 lr: 0.02
+iteration: 69000 loss: 0.0012 lr: 0.02
+iteration: 70000 loss: 0.0012 lr: 0.02
+iteration: 71000 loss: 0.0012 lr: 0.02
+iteration: 72000 loss: 0.0012 lr: 0.02
+iteration: 73000 loss: 0.0012 lr: 0.02
+iteration: 74000 loss: 0.0012 lr: 0.02
+iteration: 75000 loss: 0.0012 lr: 0.02
+iteration: 76000 loss: 0.0011 lr: 0.02
+iteration: 77000 loss: 0.0011 lr: 0.02
+iteration: 78000 loss: 0.0012 lr: 0.02
+iteration: 79000 loss: 0.0011 lr: 0.02
+iteration: 80000 loss: 0.0011 lr: 0.02
+iteration: 81000 loss: 0.0011 lr: 0.02
+iteration: 82000 loss: 0.0011 lr: 0.02
+iteration: 83000 loss: 0.0011 lr: 0.02
+iteration: 84000 loss: 0.0011 lr: 0.02
+iteration: 85000 loss: 0.0011 lr: 0.02
+iteration: 86000 loss: 0.0011 lr: 0.02
+iteration: 87000 loss: 0.0011 lr: 0.02
+iteration: 88000 loss: 0.0011 lr: 0.02
+iteration: 89000 loss: 0.0011 lr: 0.02
+iteration: 90000 loss: 0.0011 lr: 0.02
+iteration: 91000 loss: 0.0011 lr: 0.02
+iteration: 92000 loss: 0.0011 lr: 0.02
+iteration: 93000 loss: 0.0011 lr: 0.02
+iteration: 94000 loss: 0.0011 lr: 0.02
+iteration: 95000 loss: 0.0011 lr: 0.02
+iteration: 96000 loss: 0.0010 lr: 0.02
+iteration: 97000 loss: 0.0011 lr: 0.02
+iteration: 98000 loss: 0.0011 lr: 0.02
+iteration: 99000 loss: 0.0011 lr: 0.02
+iteration: 100000 loss: 0.0011 lr: 0.02
+iteration: 101000 loss: 0.0010 lr: 0.02
+iteration: 102000 loss: 0.0010 lr: 0.02
+iteration: 103000 loss: 0.0011 lr: 0.02
+iteration: 104000 loss: 0.0011 lr: 0.02
+iteration: 105000 loss: 0.0010 lr: 0.02
+iteration: 106000 loss: 0.0010 lr: 0.02
+iteration: 107000 loss: 0.0011 lr: 0.02
+iteration: 108000 loss: 0.0010 lr: 0.02
+iteration: 109000 loss: 0.0010 lr: 0.02
+iteration: 110000 loss: 0.0010 lr: 0.02
+iteration: 111000 loss: 0.0010 lr: 0.02
+iteration: 112000 loss: 0.0010 lr: 0.02
+iteration: 113000 loss: 0.0010 lr: 0.02
+iteration: 114000 loss: 0.0010 lr: 0.02
+iteration: 115000 loss: 0.0010 lr: 0.02
+iteration: 116000 loss: 0.0010 lr: 0.02
+iteration: 117000 loss: 0.0010 lr: 0.02
+iteration: 118000 loss: 0.0010 lr: 0.02
+iteration: 119000 loss: 0.0010 lr: 0.02
+iteration: 120000 loss: 0.0010 lr: 0.02
+iteration: 121000 loss: 0.0010 lr: 0.02
+iteration: 122000 loss: 0.0010 lr: 0.02
+iteration: 123000 loss: 0.0010 lr: 0.02
+iteration: 124000 loss: 0.0010 lr: 0.02
+iteration: 125000 loss: 0.0010 lr: 0.02
+iteration: 126000 loss: 0.0010 lr: 0.02
+iteration: 127000 loss: 0.0010 lr: 0.02
+iteration: 128000 loss: 0.0010 lr: 0.02
+iteration: 129000 loss: 0.0010 lr: 0.02
+iteration: 130000 loss: 0.0010 lr: 0.02
+iteration: 131000 loss: 0.0009 lr: 0.02
+iteration: 132000 loss: 0.0009 lr: 0.02
+iteration: 133000 loss: 0.0010 lr: 0.02
+iteration: 134000 loss: 0.0009 lr: 0.02
+iteration: 135000 loss: 0.0010 lr: 0.02
+iteration: 136000 loss: 0.0009 lr: 0.02
+iteration: 137000 loss: 0.0009 lr: 0.02
+iteration: 138000 loss: 0.0009 lr: 0.02
+iteration: 139000 loss: 0.0009 lr: 0.02
+iteration: 140000 loss: 0.0010 lr: 0.02
+iteration: 141000 loss: 0.0010 lr: 0.02
+iteration: 142000 loss: 0.0009 lr: 0.02
+iteration: 143000 loss: 0.0009 lr: 0.02
+iteration: 144000 loss: 0.0009 lr: 0.02
+iteration: 145000 loss: 0.0009 lr: 0.02
+iteration: 146000 loss: 0.0009 lr: 0.02
+iteration: 147000 loss: 0.0010 lr: 0.02
+iteration: 148000 loss: 0.0009 lr: 0.02
+iteration: 149000 loss: 0.0010 lr: 0.02
+iteration: 150000 loss: 0.0009 lr: 0.02
+iteration: 151000 loss: 0.0009 lr: 0.02
+iteration: 152000 loss: 0.0009 lr: 0.02
+iteration: 153000 loss: 0.0009 lr: 0.02
+iteration: 154000 loss: 0.0009 lr: 0.02
+iteration: 155000 loss: 0.0009 lr: 0.02
+iteration: 156000 loss: 0.0009 lr: 0.02
+iteration: 157000 loss: 0.0009 lr: 0.02
+iteration: 158000 loss: 0.0009 lr: 0.02
+iteration: 159000 loss: 0.0009 lr: 0.02
+iteration: 160000 loss: 0.0009 lr: 0.02
+iteration: 161000 loss: 0.0009 lr: 0.02
+iteration: 162000 loss: 0.0009 lr: 0.02
+iteration: 163000 loss: 0.0009 lr: 0.02
+iteration: 164000 loss: 0.0009 lr: 0.02
+iteration: 165000 loss: 0.0009 lr: 0.02
+iteration: 166000 loss: 0.0009 lr: 0.02
+iteration: 167000 loss: 0.0009 lr: 0.02
+iteration: 168000 loss: 0.0009 lr: 0.02
+iteration: 169000 loss: 0.0009 lr: 0.02
+iteration: 170000 loss: 0.0009 lr: 0.02
+iteration: 171000 loss: 0.0009 lr: 0.02
+iteration: 172000 loss: 0.0009 lr: 0.02
+iteration: 173000 loss: 0.0009 lr: 0.02
+iteration: 174000 loss: 0.0009 lr: 0.02
+iteration: 175000 loss: 0.0009 lr: 0.02
+iteration: 176000 loss: 0.0009 lr: 0.02
+iteration: 177000 loss: 0.0008 lr: 0.02
+iteration: 178000 loss: 0.0009 lr: 0.02
+iteration: 179000 loss: 0.0009 lr: 0.02
+iteration: 180000 loss: 0.0009 lr: 0.02
+iteration: 181000 loss: 0.0009 lr: 0.02
+iteration: 182000 loss: 0.0009 lr: 0.02
+iteration: 183000 loss: 0.0009 lr: 0.02
+iteration: 184000 loss: 0.0009 lr: 0.02
+iteration: 185000 loss: 0.0009 lr: 0.02
+iteration: 186000 loss: 0.0009 lr: 0.02
+iteration: 187000 loss: 0.0009 lr: 0.02
+iteration: 188000 loss: 0.0009 lr: 0.02
+iteration: 189000 loss: 0.0009 lr: 0.02
+iteration: 190000 loss: 0.0009 lr: 0.02
+iteration: 191000 loss: 0.0008 lr: 0.02
+iteration: 192000 loss: 0.0009 lr: 0.02
+iteration: 193000 loss: 0.0008 lr: 0.02
+iteration: 194000 loss: 0.0009 lr: 0.02
+iteration: 195000 loss: 0.0009 lr: 0.02
+iteration: 196000 loss: 0.0008 lr: 0.02
+iteration: 197000 loss: 0.0009 lr: 0.02
+iteration: 198000 loss: 0.0009 lr: 0.02
+iteration: 199000 loss: 0.0009 lr: 0.02
+iteration: 200000 loss: 0.0009 lr: 0.02
+iteration: 201000 loss: 0.0008 lr: 0.02
+iteration: 202000 loss: 0.0008 lr: 0.02
+iteration: 203000 loss: 0.0009 lr: 0.02
+iteration: 204000 loss: 0.0008 lr: 0.02
+iteration: 205000 loss: 0.0009 lr: 0.02
+iteration: 206000 loss: 0.0008 lr: 0.02
+iteration: 207000 loss: 0.0009 lr: 0.02
+iteration: 208000 loss: 0.0008 lr: 0.02
+iteration: 209000 loss: 0.0008 lr: 0.02
+iteration: 210000 loss: 0.0009 lr: 0.02
+iteration: 211000 loss: 0.0009 lr: 0.02
+iteration: 212000 loss: 0.0009 lr: 0.02
+iteration: 213000 loss: 0.0009 lr: 0.02
+iteration: 214000 loss: 0.0009 lr: 0.02
+iteration: 215000 loss: 0.0009 lr: 0.02
+iteration: 216000 loss: 0.0008 lr: 0.02
+iteration: 217000 loss: 0.0008 lr: 0.02
+iteration: 218000 loss: 0.0008 lr: 0.02
+iteration: 219000 loss: 0.0008 lr: 0.02
+iteration: 220000 loss: 0.0009 lr: 0.02
+iteration: 221000 loss: 0.0009 lr: 0.02
+iteration: 222000 loss: 0.0008 lr: 0.02
+iteration: 223000 loss: 0.0008 lr: 0.02
+iteration: 224000 loss: 0.0009 lr: 0.02
+iteration: 225000 loss: 0.0008 lr: 0.02
+iteration: 226000 loss: 0.0008 lr: 0.02
+iteration: 227000 loss: 0.0008 lr: 0.02
+iteration: 228000 loss: 0.0008 lr: 0.02
+iteration: 229000 loss: 0.0008 lr: 0.02
+iteration: 230000 loss: 0.0008 lr: 0.02
+iteration: 231000 loss: 0.0008 lr: 0.02
+iteration: 232000 loss: 0.0008 lr: 0.02
+iteration: 233000 loss: 0.0009 lr: 0.02
+iteration: 234000 loss: 0.0008 lr: 0.02
+iteration: 235000 loss: 0.0009 lr: 0.02
+iteration: 236000 loss: 0.0008 lr: 0.02
+iteration: 237000 loss: 0.0008 lr: 0.02
+iteration: 238000 loss: 0.0008 lr: 0.02
+iteration: 239000 loss: 0.0008 lr: 0.02
+iteration: 240000 loss: 0.0008 lr: 0.02
+iteration: 241000 loss: 0.0009 lr: 0.02
+iteration: 242000 loss: 0.0008 lr: 0.02
+iteration: 243000 loss: 0.0008 lr: 0.02
+iteration: 244000 loss: 0.0008 lr: 0.02
+iteration: 245000 loss: 0.0008 lr: 0.02
+iteration: 246000 loss: 0.0008 lr: 0.02
+iteration: 247000 loss: 0.0008 lr: 0.02
+iteration: 248000 loss: 0.0008 lr: 0.02
+iteration: 249000 loss: 0.0008 lr: 0.02
+iteration: 250000 loss: 0.0009 lr: 0.02
+iteration: 251000 loss: 0.0008 lr: 0.02
+iteration: 252000 loss: 0.0008 lr: 0.02
+iteration: 253000 loss: 0.0008 lr: 0.02
+iteration: 254000 loss: 0.0008 lr: 0.02
+iteration: 255000 loss: 0.0008 lr: 0.02
+iteration: 256000 loss: 0.0008 lr: 0.02
+iteration: 257000 loss: 0.0008 lr: 0.02
+iteration: 258000 loss: 0.0008 lr: 0.02
+iteration: 259000 loss: 0.0008 lr: 0.02
+iteration: 260000 loss: 0.0008 lr: 0.02
+iteration: 261000 loss: 0.0008 lr: 0.02
+iteration: 262000 loss: 0.0008 lr: 0.02
+iteration: 263000 loss: 0.0008 lr: 0.02
+iteration: 264000 loss: 0.0008 lr: 0.02
+iteration: 265000 loss: 0.0008 lr: 0.02
+iteration: 266000 loss: 0.0008 lr: 0.02
+iteration: 267000 loss: 0.0008 lr: 0.02
+iteration: 268000 loss: 0.0008 lr: 0.02
+iteration: 269000 loss: 0.0008 lr: 0.02
+iteration: 270000 loss: 0.0008 lr: 0.02
+iteration: 271000 loss: 0.0008 lr: 0.02
+iteration: 272000 loss: 0.0008 lr: 0.02
+iteration: 273000 loss: 0.0008 lr: 0.02
+iteration: 274000 loss: 0.0008 lr: 0.02
+iteration: 275000 loss: 0.0008 lr: 0.02
+iteration: 276000 loss: 0.0008 lr: 0.02
+iteration: 277000 loss: 0.0008 lr: 0.02
+iteration: 278000 loss: 0.0008 lr: 0.02
+iteration: 279000 loss: 0.0008 lr: 0.02
+iteration: 280000 loss: 0.0008 lr: 0.02
+iteration: 281000 loss: 0.0008 lr: 0.02
+iteration: 282000 loss: 0.0008 lr: 0.02
+iteration: 283000 loss: 0.0008 lr: 0.02
+iteration: 284000 loss: 0.0008 lr: 0.02
+iteration: 285000 loss: 0.0008 lr: 0.02
+iteration: 286000 loss: 0.0008 lr: 0.02
+iteration: 287000 loss: 0.0008 lr: 0.02
+iteration: 288000 loss: 0.0008 lr: 0.02
+iteration: 289000 loss: 0.0008 lr: 0.02
+iteration: 290000 loss: 0.0008 lr: 0.02
+iteration: 291000 loss: 0.0008 lr: 0.02
+iteration: 292000 loss: 0.0008 lr: 0.02
+iteration: 293000 loss: 0.0008 lr: 0.02
+iteration: 294000 loss: 0.0008 lr: 0.02
+iteration: 295000 loss: 0.0008 lr: 0.02
+iteration: 296000 loss: 0.0008 lr: 0.02
+iteration: 297000 loss: 0.0008 lr: 0.02
+iteration: 298000 loss: 0.0008 lr: 0.02
+iteration: 299000 loss: 0.0008 lr: 0.02
+iteration: 300000 loss: 0.0008 lr: 0.02
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1334, in _do_call
+    return fn(*args)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1319, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1407, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.CancelledError: Enqueue operation was cancelled
+	 [[{{node fifo_queue_enqueue}} = QueueEnqueueV2[Tcomponents=[DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT], timeout_ms=-1, _device="/job:localhost/replica:0/task:0/device:CPU:0"](fifo_queue, _arg_Placeholder_0_0, _arg_Placeholder_1_0_1, _arg_Placeholder_2_0_2, _arg_Placeholder_3_0_3, _arg_Placeholder_4_0_4)]]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/threading.py", line 864, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/train.py", line 81, in load_and_enqueue
+    sess.run(enqueue_op, feed_dict=food)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 929, in run
+    run_metadata_ptr)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1152, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1328, in _do_run
+    run_metadata)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1348, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.CancelledError: Enqueue operation was cancelled
+	 [[node fifo_queue_enqueue (defined at /home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/train.py:67)  = QueueEnqueueV2[Tcomponents=[DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT], timeout_ms=-1, _device="/job:localhost/replica:0/task:0/device:CPU:0"](fifo_queue, _arg_Placeholder_0_0, _arg_Placeholder_1_0_1, _arg_Placeholder_2_0_2, _arg_Placeholder_3_0_3, _arg_Placeholder_4_0_4)]]
+
+Caused by op 'fifo_queue_enqueue', defined at:
+  File "run_dlc_openfield.py", line 16, in <module>
+    deeplabcut.train_network(path_config_file, maxiters=300000)
+  File "/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/training.py", line 132, in train_network
+    train(str(poseconfigfile),displayiters,saveiters,maxiters,max_to_keep=max_snapshots_to_keep,keepdeconvweights=keepdeconvweights,allow_growth=allow_growth) #pass on path and file name for pose_cfg.yaml!
+  File "/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/train.py", line 118, in train
+    batch, enqueue_op, placeholders = setup_preloading(batch_spec)
+  File "/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/train.py", line 67, in setup_preloading
+    enqueue_op = q.enqueue(placeholders_list)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/ops/data_flow_ops.py", line 341, in enqueue
+    self._queue_ref, vals, name=scope)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/ops/gen_data_flow_ops.py", line 3984, in queue_enqueue_v2
+    timeout_ms=timeout_ms, name=name)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 787, in _apply_op_helper
+    op_def=op_def)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 488, in new_func
+    return func(*args, **kwargs)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3274, in create_op
+    op_def=op_def)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 1770, in __init__
+    self._traceback = tf_stack.extract_stack()
+
+CancelledError (see above for traceback): Enqueue operation was cancelled
+	 [[node fifo_queue_enqueue (defined at /home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/train.py:67)  = QueueEnqueueV2[Tcomponents=[DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT, DT_FLOAT], timeout_ms=-1, _device="/job:localhost/replica:0/task:0/device:CPU:0"](fifo_queue, _arg_Placeholder_0_0, _arg_Placeholder_1_0_1, _arg_Placeholder_2_0_2, _arg_Placeholder_3_0_3, _arg_Placeholder_4_0_4)]]
+
+
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20/labeled-data/C:\Users\ward5279user\Documents\JJM\dlc_projects\bottom_tracking_openfield_HD_01-JJM-2020-08-20\videos\07132020_d1fmr5openfield_397_1_HDtest/CollectedData_JJM.h5  not found (perhaps not annotated)
+Annotation data was not found by splitting video paths (from config['video_sets']). An alternative route is taken...
+The following folders were found: ['07132020_d1fmr5openfield_397_1_HDtest']
+The training dataset is successfully created. Use the function 'train_network' to start training. Happy training!
+Switching batchsize to 1, as default/tensorpack/deterministic loaders do not support batches >1. Use imgaug loader.
+Starting with standard pose-dataset loader.
+Initializing ResNet
+Loading ImageNet-pretrained resnet_50
+Max_iters overwritten as 300000
+Training parameter:
+{'stride': 8.0, 'weigh_part_predictions': False, 'weigh_negatives': False, 'fg_fraction': 0.25, 'weigh_only_present_joints': False, 'mean_pixel': [123.68, 116.779, 103.939], 'shuffle': True, 'snapshot_prefix': '/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20/dlc-models/iteration-0/bottom_tracking_openfield_HD_01Aug20-trainset95shuffle1/train/snapshot', 'log_dir': 'log', 'global_scale': 0.8, 'location_refinement': True, 'locref_stdev': 7.2801, 'locref_loss_weight': 0.05, 'locref_huber_loss': True, 'optimizer': 'sgd', 'intermediate_supervision': False, 'intermediate_supervision_layer': 12, 'regularize': False, 'weight_decay': 0.0001, 'mirror': False, 'crop_pad': 0, 'scoremap_dir': 'test', 'batch_size': 1, 'dataset_type': 'default', 'deterministic': False, 'crop': True, 'cropratio': 0.4, 'minsize': 100, 'leftwidth': 400, 'rightwidth': 400, 'topheight': 400, 'bottomheight': 400, 'all_joints': [[0], [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11]], 'all_joints_names': ['snout', 'ear_L', 'ear_R', 'front_paw_L', 'front_paw_R', 'rear_paw_L', 'rear_paw_R', 'tail_base', 'arena_UL', 'arena_UR', 'arena_LL', 'arena_LR'], 'dataset': 'training-datasets/iteration-0/UnaugmentedDataSet_bottom_tracking_openfield_HD_01Aug20/bottom_tracking_openfield_HD_01_JJM95shuffle1.mat', 'display_iters': 1000, 'init_weights': '/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/models/pretrained/resnet_v1_50.ckpt', 'max_input_size': 1500, 'metadataset': 'training-datasets/iteration-0/UnaugmentedDataSet_bottom_tracking_openfield_HD_01Aug20/Documentation_data-bottom_tracking_openfield_HD_01_95shuffle1.pickle', 'min_input_size': 64, 'multi_step': [[0.005, 10000], [0.02, 430000], [0.002, 730000], [0.001, 1030000]], 'net_type': 'resnet_50', 'num_joints': 12, 'pos_dist_thresh': 17, 'project_path': '/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20', 'save_iters': 50000, 'scale_jitter_lo': 0.5, 'scale_jitter_up': 1.25, 'output_stride': 16, 'deconvolutionstride': 2}
+Starting training....
+The network is now trained and ready to evaluate. Use the function 'evaluate_network' to evaluate the network.
+finished evaluating

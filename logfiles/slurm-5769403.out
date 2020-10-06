@@ -1,0 +1,31 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/rotarod_analysis_00-JJM-2020-02-13/config.yaml
+directory with behavior videos is: 
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+0it [00:00, ?it/s]1it [00:01,  1.42s/it]4it [00:01,  1.00s/it]7it [00:01,  1.40it/s]11it [00:01,  1.97it/s]14it [00:01,  2.73it/s]17it [00:01,  3.73it/s]20it [00:02,  5.03it/s]23it [00:02,  6.65it/s]26it [00:02,  8.66it/s]29it [00:02, 10.96it/s]32it [00:02, 13.31it/s]35it [00:02, 13.31it/s]38it [00:02, 14.71it/s]40it [00:02, 13.42it/s]
+  0%|          | 0/40 [00:00<?, ?it/s]  2%|▎         | 1/40 [00:00<00:12,  3.21it/s]  5%|▌         | 2/40 [00:00<00:10,  3.57it/s]  8%|▊         | 3/40 [00:00<00:09,  3.91it/s] 10%|█         | 4/40 [00:00<00:08,  4.18it/s] 12%|█▎        | 5/40 [00:01<00:07,  4.39it/s] 15%|█▌        | 6/40 [00:01<00:07,  4.56it/s] 18%|█▊        | 7/40 [00:01<00:07,  4.69it/s] 20%|██        | 8/40 [00:01<00:06,  4.77it/s] 22%|██▎       | 9/40 [00:01<00:06,  4.85it/s] 25%|██▌       | 10/40 [00:02<00:06,  4.94it/s] 28%|██▊       | 11/40 [00:02<00:06,  4.22it/s] 30%|███       | 12/40 [00:02<00:06,  4.41it/s] 32%|███▎      | 13/40 [00:02<00:05,  4.60it/s] 35%|███▌      | 14/40 [00:03<00:05,  4.67it/s] 38%|███▊      | 15/40 [00:03<00:05,  4.77it/s] 40%|████      | 16/40 [00:03<00:04,  4.85it/s] 42%|████▎     | 17/40 [00:03<00:04,  4.96it/s] 45%|████▌     | 18/40 [00:03<00:04,  4.97it/s] 48%|████▊     | 19/40 [00:04<00:04,  5.01it/s] 50%|█████     | 20/40 [00:04<00:03,  5.14it/s] 52%|█████▎    | 21/40 [00:04<00:03,  5.09it/s] 55%|█████▌    | 22/40 [00:04<00:03,  5.09it/s] 57%|█████▊    | 23/40 [00:04<00:03,  5.10it/s] 60%|██████    | 24/40 [00:04<00:03,  5.07it/s] 62%|██████▎   | 25/40 [00:05<00:02,  5.09it/s] 65%|██████▌   | 26/40 [00:05<00:02,  5.10it/s] 68%|██████▊   | 27/40 [00:05<00:02,  5.11it/s] 70%|███████   | 28/40 [00:05<00:02,  5.09it/s] 72%|███████▎  | 29/40 [00:05<00:02,  4.99it/s] 75%|███████▌  | 30/40 [00:06<00:01,  5.00it/s] 78%|███████▊  | 31/40 [00:06<00:01,  5.02it/s] 80%|████████  | 32/40 [00:06<00:01,  4.99it/s] 82%|████████▎ | 33/40 [00:06<00:01,  4.96it/s] 85%|████████▌ | 34/40 [00:06<00:01,  5.00it/s] 88%|████████▊ | 35/40 [00:07<00:01,  4.20it/s] 90%|█████████ | 36/40 [00:07<00:00,  4.42it/s] 92%|█████████▎| 37/40 [00:07<00:00,  4.60it/s] 95%|█████████▌| 38/40 [00:07<00:00,  4.69it/s] 98%|█████████▊| 39/40 [00:08<00:00,  4.74it/s]100%|██████████| 40/40 [00:08<00:00,  4.82it/s]
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Running  DLC_resnet50_rotarod_analysis_00Feb13shuffle1_300000  with # of trainingiterations: 300000
+Initializing ResNet
+Analyzing data...
+Done and results stored for snapshot:  snapshot-300000
+Results for 300000  training iterations: 95 1 train error: 1.64 pixels. Test error: 18.19  pixels.
+With pcutoff of 0.1  train error: 1.64 pixels. Test error: 4.87 pixels
+Thereby, the errors are given by the average distances between the labels by DLC and the scorer.
+Plotting...
+The network is evaluated and the results are stored in the subdirectory 'evaluation_results'.
+If it generalizes well, choose the best model for prediction and update the config file with the appropriate index for the 'snapshotindex'.
+Use the function 'analyze_video' to make predictions on new videos.
+Otherwise consider retraining the network (see DeepLabCut workflow Fig 2)
+finished evaluating

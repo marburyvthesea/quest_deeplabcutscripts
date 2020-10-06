@@ -1,0 +1,4 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/rotarod_analysis_00-JJM-2020-02-13/config.yaml
+directory with behavior videos is: 
+/var/spool/slurmd/job5769402/slurm_script: line 29: dlc_evaluate_network.py: command not found

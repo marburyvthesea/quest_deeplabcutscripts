@@ -1,0 +1,21 @@
+Module is experimental. 
+Traceback (most recent call last):
+  File "run_dlc_openfield.py", line 3, in <module>
+    import deeplabcut
+  File "/home/jma819/DeepLabCut/deeplabcut/__init__.py", line 30, in <module>
+    from deeplabcut import generate_training_dataset
+  File "/home/jma819/DeepLabCut/deeplabcut/generate_training_dataset/__init__.py", line 19, in <module>
+    from deeplabcut.generate_training_dataset.labeling_toolbox import *
+  File "/home/jma819/DeepLabCut/deeplabcut/generate_training_dataset/labeling_toolbox.py", line 27, in <module>
+    from deeplabcut.utils import auxiliaryfunctions
+  File "/home/jma819/DeepLabCut/deeplabcut/utils/__init__.py", line 1, in <module>
+    from deeplabcut.utils.make_labeled_video import *
+  File "/home/jma819/DeepLabCut/deeplabcut/utils/make_labeled_video.py", line 34, in <module>
+    mpl.use('TkAgg')
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py", line 307, in wrapper
+    return func(*args, **kwargs)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/matplotlib/__init__.py", line 1309, in use
+    switch_backend(name)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/matplotlib/pyplot.py", line 236, in switch_backend
+    newbackend, required_framework, current_framework))
+ImportError: Cannot load backend 'TkAgg' which requires the 'tk' interactive framework, as 'headless' is currently running

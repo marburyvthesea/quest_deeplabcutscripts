@@ -10,14 +10,14 @@ path_config_file = sys.argv[1]
 #num_gpu = sys.argv[2]
 
 # create training dataset
-deeplabcut.create_training_dataset(path_config_file)
+#deeplabcut.create_training_dataset(path_config_file)
 
 # train network 
-deeplabcut.train_network(path_config_file, maxiters=300000)
+#deeplabcut.train_network(path_config_file, maxiters=100000)
 
 #print('finished training!')
 #
-#deeplabcut.evaluate_network(path_config_file, plotting=True)
+deeplabcut.evaluate_network(path_config_file, plotting=True)
 
 print('finished evaluating')
 #

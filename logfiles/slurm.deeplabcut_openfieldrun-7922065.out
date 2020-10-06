@@ -1,0 +1,74 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/config.yaml
+directory with behavior videos is: /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Using snapshot-300000 for model /projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/dlc-models/iteration-0/GRIN_rotarod_rearviewApr2-trainset95shuffle1
+Initializing ResNet
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam1.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam1DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam4.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam4DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam5.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam5DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam2.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam2DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam3.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam3DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam6.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M11_S42/behavCam6DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+The videos are analyzed. Now your research can truly start! 
+ You can create labeled videos with 'create_labeled_video'.
+If the tracking is not satisfactory for some videos, consider expanding the training set. You can use the function 'extract_outlier_frames' to extract any outlier frames!
+finished video analysis!, beginning retraining...
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/training-datasets/iteration-0/UnaugmentedDataSet_GRIN_rotarod_rearviewApr2  already exists!
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam1/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam3/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam4/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam5/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam6/CollectedData_JJM.h5  not found (perhaps not annotated)
+Traceback (most recent call last):
+  File "dlc_analyze_new_videos.py", line 24, in <module>
+    deeplabcut.create_training_dataset(path_config_file)
+  File "/home/jma819/DeepLabCut/deeplabcut/generate_training_dataset/trainingsetmanipulation.py", line 573, in create_training_dataset
+    Data = merge_annotateddatasets(cfg,project_path,Path(os.path.join(project_path,trainingsetfolder)),windows2linux)
+  File "/home/jma819/DeepLabCut/deeplabcut/generate_training_dataset/trainingsetmanipulation.py", line 420, in merge_annotateddatasets
+    AnnotationData.to_hdf(filename+'.h5', key='df_with_missing', mode='w')
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/pandas/core/generic.py", line 2530, in to_hdf
+    pytables.to_hdf(path_or_buf, key, self, **kwargs)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/pandas/io/pytables.py", line 276, in to_hdf
+    path_or_buf, mode=mode, complevel=complevel, complib=complib
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/pandas/io/pytables.py", line 505, in __init__
+    self.open(mode=mode, **kwargs)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/pandas/io/pytables.py", line 627, in open
+    self._handle = tables.open_file(self._path, self._mode, **kwargs)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tables/file.py", line 320, in open_file
+    return File(filename, mode, title, root_uep, filters, **kwargs)
+  File "/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tables/file.py", line 784, in __init__
+    self._g_new(filename, mode, **params)
+  File "tables/hdf5extension.pyx", line 489, in tables.hdf5extension.File._g_new
+tables.exceptions.HDF5ExtError: HDF5 error back trace
+
+  File "H5F.c", line 445, in H5Fcreate
+    unable to create file
+  File "H5Fint.c", line 1519, in H5F_open
+    unable to lock the file
+  File "H5FD.c", line 1650, in H5FD_lock
+    driver lock request failed
+  File "H5FDsec2.c", line 941, in H5FD_sec2_lock
+    unable to lock file, errno = 11, error message = 'Resource temporarily unavailable'
+
+End of HDF5 error back trace
+
+Unable to open/create file '/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/training-datasets/iteration-0/UnaugmentedDataSet_GRIN_rotarod_rearviewApr2//CollectedData_JJM.h5'

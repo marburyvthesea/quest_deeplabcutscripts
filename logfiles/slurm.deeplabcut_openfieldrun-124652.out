@@ -1,0 +1,48 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/config.yaml
+directory with behavior videos is: /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_19_2020/H15_M48_S22
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+  0%|          | 0/967 [00:00<?, ?it/s]  2%|▏         | 20/967 [00:02<01:51,  8.46it/s]  4%|▍         | 40/967 [00:02<01:19, 11.62it/s]  5%|▌         | 50/967 [00:02<00:59, 15.51it/s]  7%|▋         | 70/967 [00:02<00:42, 20.96it/s]  9%|▉         | 90/967 [00:03<00:32, 27.08it/s] 11%|█▏        | 110/967 [00:03<00:24, 34.93it/s] 13%|█▎        | 130/967 [00:03<00:19, 42.59it/s] 14%|█▍        | 140/967 [00:03<00:16, 51.43it/s] 17%|█▋        | 160/967 [00:03<00:13, 61.26it/s] 18%|█▊        | 170/967 [00:03<00:12, 63.18it/s] 20%|█▉        | 190/967 [00:04<00:10, 71.61it/s] 22%|██▏       | 210/967 [00:04<00:10, 75.07it/s] 23%|██▎       | 220/967 [00:04<00:09, 80.62it/s] 25%|██▍       | 240/967 [00:04<00:08, 87.00it/s] 26%|██▌       | 250/967 [00:04<00:08, 81.99it/s] 28%|██▊       | 270/967 [00:05<00:07, 88.62it/s] 30%|██▉       | 290/967 [00:05<00:07, 88.51it/s] 32%|███▏      | 310/967 [00:05<00:07, 93.74it/s] 34%|███▍      | 330/967 [00:05<00:07, 90.91it/s] 35%|███▌      | 340/967 [00:05<00:06, 93.04it/s] 37%|███▋      | 360/967 [00:05<00:06, 98.96it/s] 39%|███▉      | 380/967 [00:06<00:06, 94.54it/s] 41%|████▏     | 400/967 [00:06<00:05, 99.48it/s] 43%|████▎     | 420/967 [00:06<00:05, 93.96it/s] 46%|████▌     | 440/967 [00:06<00:05, 98.08it/s] 48%|████▊     | 460/967 [00:07<00:05, 93.17it/s] 50%|████▉     | 480/967 [00:07<00:05, 97.33it/s] 51%|█████     | 490/967 [00:07<00:05, 87.28it/s] 52%|█████▏    | 500/967 [00:07<00:05, 89.00it/s] 54%|█████▍    | 520/967 [00:07<00:04, 95.20it/s] 55%|█████▍    | 530/967 [00:07<00:05, 85.66it/s] 57%|█████▋    | 550/967 [00:07<00:04, 91.06it/s] 59%|█████▉    | 570/967 [00:08<00:04, 90.14it/s] 60%|█████▉    | 580/967 [00:08<00:04, 92.72it/s] 62%|██████▏   | 600/967 [00:08<00:03, 97.47it/s] 63%|██████▎   | 610/967 [00:08<00:04, 86.61it/s] 65%|██████▌   | 630/967 [00:08<00:03, 92.57it/s] 67%|██████▋   | 650/967 [00:09<00:03, 90.68it/s] 69%|██████▉   | 670/967 [00:09<00:03, 94.88it/s] 71%|███████▏  | 690/967 [00:09<00:03, 91.02it/s] 72%|███████▏  | 700/967 [00:09<00:02, 93.28it/s] 74%|███████▍  | 720/967 [00:09<00:02, 97.31it/s] 75%|███████▌  | 730/967 [00:09<00:02, 87.53it/s] 77%|███████▋  | 740/967 [00:09<00:02, 90.76it/s] 79%|███████▊  | 760/967 [00:10<00:02, 95.80it/s] 80%|███████▉  | 770/967 [00:10<00:02, 85.71it/s] 82%|████████▏ | 790/967 [00:10<00:01, 92.76it/s] 84%|████████▍ | 810/967 [00:10<00:01, 91.57it/s] 86%|████████▌ | 830/967 [00:10<00:01, 97.23it/s] 88%|████████▊ | 850/967 [00:11<00:01, 94.12it/s] 90%|████████▉ | 870/967 [00:11<00:00, 98.57it/s] 92%|█████████▏| 890/967 [00:11<00:00, 93.94it/s] 94%|█████████▍| 910/967 [00:11<00:00, 98.29it/s] 96%|█████████▌| 930/967 [00:11<00:00, 94.04it/s] 98%|█████████▊| 950/967 [00:12<00:00, 97.99it/s]970it [00:12, 93.98it/s]                         
+  0%|          | 0/967 [00:00<?, ?it/s]  5%|▌         | 51/967 [00:00<00:01, 503.53it/s] 11%|█         | 104/967 [00:00<00:01, 510.57it/s] 16%|█▌        | 156/967 [00:00<00:01, 510.73it/s] 22%|██▏       | 210/967 [00:00<00:01, 518.07it/s] 27%|██▋       | 263/967 [00:00<00:01, 520.16it/s] 33%|███▎      | 318/967 [00:00<00:01, 526.75it/s] 39%|███▊      | 373/967 [00:00<00:01, 532.95it/s] 44%|████▍     | 426/967 [00:00<00:01, 531.91it/s] 50%|████▉     | 481/967 [00:00<00:00, 535.07it/s] 56%|█████▌    | 539/967 [00:01<00:00, 545.69it/s] 61%|██████▏   | 594/967 [00:01<00:00, 544.26it/s] 67%|██████▋   | 648/967 [00:01<00:00, 535.65it/s] 72%|███████▏  | 701/967 [00:01<00:00, 533.33it/s] 78%|███████▊  | 754/967 [00:01<00:00, 532.14it/s] 83%|████████▎ | 807/967 [00:01<00:00, 516.86it/s] 89%|████████▉ | 859/967 [00:01<00:00, 506.25it/s] 94%|█████████▍| 911/967 [00:01<00:00, 507.95it/s] 99%|█████████▉| 962/967 [00:01<00:00, 505.78it/s]100%|██████████| 967/967 [00:01<00:00, 523.70it/s]
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Using snapshot-300000 for model /projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/dlc-models/iteration-0/GRIN_rotarod_rearviewApr2-trainset95shuffle1
+Initializing ResNet
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_19_2020/H15_M48_S22/behavCam1.avi
+Loading  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_19_2020/H15_M48_S22/behavCam1.avi
+Duration of video [s]:  48.35 , recorded with  20.0 fps!
+Overall # of frames:  967  found with (before cropping) frame dimensions:  505 474
+Starting to extract posture
+Detected frames:  967
+Saving results in /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_19_2020/H15_M48_S22...
+The videos are analyzed. Now your research can truly start! 
+ You can create labeled videos with 'create_labeled_video'.
+If the tracking is not satisfactory for some videos, consider expanding the training set. You can use the function 'extract_outlier_frames' to extract any outlier frames!
+finished video analysis!, beginning retraining...
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/training-datasets/iteration-0/UnaugmentedDataSet_GRIN_rotarod_rearviewApr2  already exists!
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam1/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam3/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam4/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam5/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/dlc-models/iteration-0/GRIN_rotarod_rearviewApr2-trainset95shuffle1  already exists!
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/dlc-models/iteration-0/GRIN_rotarod_rearviewApr2-trainset95shuffle1//train  already exists!
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/dlc-models/iteration-0/GRIN_rotarod_rearviewApr2-trainset95shuffle1//test  already exists!
+The training dataset is successfully created. Use the function 'train_network' to start training. Happy training!
+finished retraining!, creating labellef videos...
+Starting %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_19_2020/H15_M48_S22 ['/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_19_2020/H15_M48_S22/behavCam1.avi']
+Loading  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_19_2020/H15_M48_S22/behavCam1.avi and data.
+967
+Duration of video [s]:  48.35 , recorded with  20.0 fps!
+Overall # of frames:  967 with cropped frame dimensions:  505 474
+Generating frames and creating video.
+finished creating labeled videos!

@@ -1,0 +1,127 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20_2/config.yaml
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Config:
+{'all_joints': [[0], [1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11]],
+ 'all_joints_names': ['snout',
+                      'ear_L',
+                      'ear_R',
+                      'front_paw_L',
+                      'front_paw_R',
+                      'rear_paw_L',
+                      'rear_paw_R',
+                      'tail_base',
+                      'arena_UL',
+                      'arena_UR',
+                      'arena_LL',
+                      'arena_LR'],
+ 'batch_size': 1,
+ 'bottomheight': 400,
+ 'crop': True,
+ 'crop_pad': 0,
+ 'cropratio': 0.4,
+ 'dataset': 'training-datasets/iteration-0/UnaugmentedDataSet_bottom_tracking_openfield_HD_01Aug20/bottom_tracking_openfield_HD_01_JJM95shuffle1.mat',
+ 'dataset_type': 'default',
+ 'deterministic': False,
+ 'display_iters': 1000,
+ 'fg_fraction': 0.25,
+ 'global_scale': 0.8,
+ 'init_weights': '/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/models/pretrained/resnet_v1_50.ckpt',
+ 'intermediate_supervision': False,
+ 'intermediate_supervision_layer': 12,
+ 'leftwidth': 400,
+ 'location_refinement': True,
+ 'locref_huber_loss': True,
+ 'locref_loss_weight': 0.05,
+ 'locref_stdev': 7.2801,
+ 'log_dir': 'log',
+ 'max_input_size': 1500,
+ 'mean_pixel': [123.68, 116.779, 103.939],
+ 'metadataset': 'training-datasets/iteration-0/UnaugmentedDataSet_bottom_tracking_openfield_HD_01Aug20/Documentation_data-bottom_tracking_openfield_HD_01_95shuffle1.pickle',
+ 'min_input_size': 64,
+ 'minsize': 100,
+ 'mirror': False,
+ 'multi_step': [[0.005, 10000],
+                [0.02, 430000],
+                [0.002, 730000],
+                [0.001, 1030000]],
+ 'net_type': 'resnet_50',
+ 'num_joints': 12,
+ 'optimizer': 'sgd',
+ 'pos_dist_thresh': 17,
+ 'project_path': '/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20',
+ 'regularize': False,
+ 'rightwidth': 400,
+ 'save_iters': 50000,
+ 'scale_jitter_lo': 0.5,
+ 'scale_jitter_up': 1.25,
+ 'scoremap_dir': 'test',
+ 'shuffle': True,
+ 'snapshot_prefix': '/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20/dlc-models/iteration-0/bottom_tracking_openfield_HD_01Aug20-trainset95shuffle1/train/snapshot',
+ 'stride': 8.0,
+ 'topheight': 400,
+ 'weigh_negatives': False,
+ 'weigh_only_present_joints': False,
+ 'weigh_part_predictions': False,
+ 'weight_decay': 0.0001}
+iteration: 1000 loss: 0.0175 lr: 0.005
+iteration: 2000 loss: 0.0076 lr: 0.005
+iteration: 3000 loss: 0.0059 lr: 0.005
+iteration: 4000 loss: 0.0051 lr: 0.005
+iteration: 5000 loss: 0.0048 lr: 0.005
+iteration: 6000 loss: 0.0041 lr: 0.005
+iteration: 7000 loss: 0.0040 lr: 0.005
+iteration: 8000 loss: 0.0038 lr: 0.005
+iteration: 9000 loss: 0.0037 lr: 0.005
+iteration: 10000 loss: 0.0035 lr: 0.005
+iteration: 11000 loss: 0.0047 lr: 0.02
+iteration: 12000 loss: 0.0042 lr: 0.02
+iteration: 13000 loss: 0.0039 lr: 0.02
+iteration: 14000 loss: 0.0033 lr: 0.02
+iteration: 15000 loss: 0.0031 lr: 0.02
+iteration: 16000 loss: 0.0029 lr: 0.02
+iteration: 17000 loss: 0.0028 lr: 0.02
+iteration: 18000 loss: 0.0029 lr: 0.02
+iteration: 19000 loss: 0.0027 lr: 0.02
+iteration: 20000 loss: 0.0025 lr: 0.02
+iteration: 21000 loss: 0.0024 lr: 0.02
+iteration: 22000 loss: 0.0024 lr: 0.02
+iteration: 23000 loss: 0.0024 lr: 0.02
+iteration: 24000 loss: 0.0022 lr: 0.02
+iteration: 25000 loss: 0.0022 lr: 0.02
+iteration: 26000 loss: 0.0021 lr: 0.02
+iteration: 27000 loss: 0.0021 lr: 0.02
+iteration: 28000 loss: 0.0020 lr: 0.02
+iteration: 29000 loss: 0.0019 lr: 0.02
+iteration: 30000 loss: 0.0019 lr: 0.02
+iteration: 31000 loss: 0.0019 lr: 0.02
+iteration: 32000 loss: 0.0018 lr: 0.02
+iteration: 33000 loss: 0.0018 lr: 0.02
+iteration: 34000 loss: 0.0019 lr: 0.02
+iteration: 35000 loss: 0.0017 lr: 0.02
+iteration: 36000 loss: 0.0017 lr: 0.02
+iteration: 37000 loss: 0.0016 lr: 0.02
+iteration: 38000 loss: 0.0017 lr: 0.02
+iteration: 39000 loss: 0.0017 lr: 0.02
+iteration: 40000 loss: 0.0017 lr: 0.02
+iteration: 41000 loss: 0.0016 lr: 0.02
+iteration: 42000 loss: 0.0016 lr: 0.02
+iteration: 43000 loss: 0.0015 lr: 0.02
+iteration: 44000 loss: 0.0016 lr: 0.02
+iteration: 45000 loss: 0.0015 lr: 0.02
+iteration: 46000 loss: 0.0014 lr: 0.02
+iteration: 47000 loss: 0.0015 lr: 0.02
+iteration: 48000 loss: 0.0014 lr: 0.02
+iteration: 49000 loss: 0.0014 lr: 0.02
+slurmstepd: error: *** JOB 294319 ON qgpu6009 CANCELLED AT 2020-08-21T07:17:41 DUE TO TIME LIMIT ***

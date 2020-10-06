@@ -1,0 +1,58 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/config.yaml
+directory with behavior videos is: /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Using snapshot-300000 for model /projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/dlc-models/iteration-0/GRIN_rotarod_rearviewApr2-trainset95shuffle1
+Initializing ResNet
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam1.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam1DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam4.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam4DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam5.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam5DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam2.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam2DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam3.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam3DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+Starting to analyze %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam6.avi
+Video already analyzed! /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam6DLC_resnet50_GRIN_rotarod_rearviewApr2shuffle1_300000.h5
+The videos are analyzed. Now your research can truly start! 
+ You can create labeled videos with 'create_labeled_video'.
+If the tracking is not satisfactory for some videos, consider expanding the training set. You can use the function 'extract_outlier_frames' to extract any outlier frames!
+finished video analysis!, beginning retraining...
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/training-datasets/iteration-0/UnaugmentedDataSet_GRIN_rotarod_rearviewApr2  already exists!
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam1/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam3/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam4/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam5/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/labeled-data/behavCam6/CollectedData_JJM.h5  not found (perhaps not annotated)
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/dlc-models/iteration-0/GRIN_rotarod_rearviewApr2-trainset95shuffle1  already exists!
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/dlc-models/iteration-0/GRIN_rotarod_rearviewApr2-trainset95shuffle1//train  already exists!
+/projects/p30771/dlc_analysis/GRIN_rotarod_rearview-JJM-2020-04-02/dlc-models/iteration-0/GRIN_rotarod_rearviewApr2-trainset95shuffle1//test  already exists!
+The training dataset is successfully created. Use the function 'train_network' to start training. Happy training!
+finished retraining!, creating labellef videos...
+Starting %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56 ['/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam1.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam4.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam5.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam2.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam3.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam6.avi']
+Labeled video already created.
+Starting %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56 ['/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam1.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam4.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam5.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam2.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam3.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam6.avi']
+Labeled video already created.
+Starting %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56 ['/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam1.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam4.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam5.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam2.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam3.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam6.avi']
+Labeled video already created.
+Starting %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56 ['/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam1.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam4.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam5.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam2.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam3.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam6.avi']
+Labeled video already created.
+Starting %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56 ['/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam1.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam4.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam5.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam2.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam3.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam6.avi']
+Labeled video already created.
+Starting %  /projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56 ['/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam1.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam4.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam5.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam2.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam3.avi', '/projects/p30771/dlc_analysis/behavcamvideos/rotarod/3_11_2020/H20_M22_S56/behavCam6.avi']
+Labeled video already created.
+finished creating labeled videos!

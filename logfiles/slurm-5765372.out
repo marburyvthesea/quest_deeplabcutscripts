@@ -1,0 +1,28 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/rotarod_analysis_00-JJM-2020-02-13/config.yaml
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+The training datafile  /projects/p30771/dlc_analysis/rotarod_analysis_00-JJM-2020-02-13/dlc-models/iteration-0/rotarod_analysis_00Feb13-trainset95shuffle1/train/pose_cfg.yaml  is not present.
+Probably, the training dataset for this specific shuffle index was not created.
+Try with a different shuffle/trainingsetfraction or use function 'create_training_dataset' to create a new trainingdataset with this shuffle index.
+Traceback (most recent call last):
+  File "run_dlc_openfield.py", line 16, in <module>
+    deeplabcut.train_network(path_config_file, maxiters=300000)
+  File "/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/training.py", line 134, in train_network
+    raise e
+  File "/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/training.py", line 132, in train_network
+    train(str(poseconfigfile),displayiters,saveiters,maxiters,max_to_keep=max_snapshots_to_keep,keepdeconvweights=keepdeconvweights,allow_growth=allow_growth) #pass on path and file name for pose_cfg.yaml!
+  File "/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/train.py", line 108, in train
+    os.chdir(str(Path(config_yaml).parents[0])) #switch to folder of config_yaml (for logging)
+FileNotFoundError: [Errno 2] No such file or directory: '/projects/p30771/dlc_analysis/rotarod_analysis_00-JJM-2020-02-13/dlc-models/iteration-0/rotarod_analysis_00Feb13-trainset95shuffle1/train'
