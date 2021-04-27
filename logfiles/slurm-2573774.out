@@ -1,0 +1,19 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/Test_dlc-Santiago-2020-10-06/config.yaml
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Traceback (most recent call last):
+  File "dlc_change_windows_file_paths.py", line 5, in <module>
+    import deeplabcut
+  File "/home/jma819/DeepLabCut/deeplabcut/__init__.py", line 43, in <module>
+    from deeplabcut.refine_training_dataset import extract_outlier_frames, merge_datasets
+  File "/home/jma819/DeepLabCut/deeplabcut/refine_training_dataset/__init__.py", line 20, in <module>
+    from deeplabcut.refine_training_dataset.outlier_frames import *
+  File "/home/jma819/DeepLabCut/deeplabcut/refine_training_dataset/outlier_frames.py", line 17, in <module>
+    from deeplabcut.utils import auxiliaryfunctions, visualization
+  File "/home/jma819/DeepLabCut/deeplabcut/utils/__init__.py", line 1, in <module>
+    from deeplabcut.utils.make_labeled_video import *
+  File "/home/jma819/DeepLabCut/deeplabcut/utils/make_labeled_video.py", line 37, in <module>
+    from deeplabcut.utils import auxiliaryfunctions
+  File "/home/jma819/DeepLabCut/deeplabcut/utils/auxiliaryfunctions.py", line 15, in <module>
+    import ruamel.yaml
+ModuleNotFoundError: No module named 'ruamel'

@@ -4,8 +4,9 @@
 #SBATCH --gres=gpu:1
 #SBATCH -N 1
 #SBATCH -n 1
+#SBATCH --cpus-per-task=4
 #SBATCH --mem=16G
-#SBATCH -t 48:00:00 # 1 hour in this example. gengpu has a max walltime of 48 hours.
+#SBATCH -t 04:00:00 # 1 hour in this example. gengpu has a max walltime of 48 hours.
 #SBATCH --job-name="deeplabcut_openfieldrun"
 
 module purge all
@@ -19,7 +20,11 @@ cd /home/jma819/quest_deeplabcutscripts
 
 INPUT_path_config_file=$1
 
+
+
 echo "config file is: $INPUT_path_config_file"
 
-python run_dlc_openfield.py $INPUT_path_config_file 
+
+
+python dlc_change_windows_file_paths.py $INPUT_path_config_file  
 

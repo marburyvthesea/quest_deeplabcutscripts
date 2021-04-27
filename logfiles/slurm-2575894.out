@@ -1,0 +1,8 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/Test_dlc-Santiago-2020-10-06/config.yaml
+Traceback (most recent call last):
+  File "run_dlc_openfield.py", line 5, in <module>
+    import deeplabcut
+  File "/home/jma819/DeepLabCut/deeplabcut/__init__.py", line 14, in <module>
+    import tensorflow as tf
+ModuleNotFoundError: No module named 'tensorflow'
