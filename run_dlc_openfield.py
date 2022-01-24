@@ -13,7 +13,7 @@ path_config_file = sys.argv[1]
 deeplabcut.create_training_dataset(path_config_file)
 
 # train network 
-deeplabcut.train_network(path_config_file, maxiters=300000)
+deeplabcut.train_network(path_config_file, maxiters=1000000)
 
 #print('finished training!')
 #

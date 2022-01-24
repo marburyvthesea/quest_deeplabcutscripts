@@ -1,0 +1,32 @@
+CUDA-powered GPUs also support programming frameworks such as OpenMP, OpenACC
+and OpenCL; and HIP by compiling such code to CUDA. 
+config file is: /projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/config.yaml
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/deeplabcut/utils/conversioncode.py:63: UserWarning: Could not find '/projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/labeled-data/06262020_d1fmr5openfield_gr3_d1_1_1/CollectedData_JJM.h5'. skipping
+  warnings.warn(f"Could not find '{fn+'.h5'}'. skipping")
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/deeplabcut/utils/conversioncode.py:63: UserWarning: Could not find '/projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/labeled-data/06262020_d1fmr5openfield_gr3_d1_5_1/CollectedData_JJM.h5'. skipping
+  warnings.warn(f"Could not find '{fn+'.h5'}'. skipping")
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/deeplabcut/utils/conversioncode.py:63: UserWarning: Could not find '/projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/labeled-data/06262020_d1fmr5openfield_gr3_d1_8_1/CollectedData_JJM.h5'. skipping
+  warnings.warn(f"Could not find '{fn+'.h5'}'. skipping")
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/deeplabcut/utils/conversioncode.py:63: UserWarning: Could not find '/projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/labeled-data/07032020_d1fmr5openfield_gr2_d8_1_3/CollectedData_JJM.h5'. skipping
+  warnings.warn(f"Could not find '{fn+'.h5'}'. skipping")
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/deeplabcut/utils/conversioncode.py:63: UserWarning: Could not find '/projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/labeled-data/07032020_d1fmr5openfield_gr2_d8_2_3/CollectedData_JJM.h5'. skipping
+  warnings.warn(f"Could not find '{fn+'.h5'}'. skipping")
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/deeplabcut/utils/conversioncode.py:63: UserWarning: Could not find '/projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/labeled-data/07032020_d1fmr5openfield_gr2_d8_5_3/CollectedData_JJM.h5'. skipping
+  warnings.warn(f"Could not find '{fn+'.h5'}'. skipping")
+/hom/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/deeplabcut/utils/conversioncode.py:63: UserWarning: Could not find '/projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/labeled-data/07032020_d1fmr5openfield_gr2_d8_9_3/CollectedData_JJM.h5'. skipping
+  warnings.warn(f"Could not find '{fn+'.h5'}'. skipping")
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/deeplabcut/utils/conversioncode.py:63: UserWarning: Could not find '/projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/labeled-data/07032020_d1fmr5openfield_gr3_d8_5_3/CollectedData_JJM.h5'. skipping
+  warnings.warn(f"Could not find '{fn+'.h5'}'. skipping")
+paths converted

@@ -1,0 +1,4 @@
+CUDA-powered GPUs also support programming frameworks such as OpenMP, OpenACC
+and OpenCL; and HIP by compiling such code to CUDA. 
+config file is: /projects/p30771/dlc_analysis/RotaryWheelTracking_2-JJM-2021-08-17
+slurmstepd: error: *** JOB 8220250 ON qgpu6039 CANCELLED AT 2021-08-17T21:33:34 ***

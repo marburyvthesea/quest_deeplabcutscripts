@@ -1,0 +1,17 @@
+Module is experimental. 
+config file is: /projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20_2/config.yaml
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/home/jma819/.conda/envs/py36_tensorflow_gpu_1_12_1/lib/python3.6/site-packages/deeplabcut/utils/conversioncode.py:63: UserWarning: Could not find '/projects/p30771/dlc_analysis/bottom_tracking_openfield_HD_01-JJM-2020-08-20_2/labeled-data/C:\Users\ward5279user\Documents\JJM\dlc_projects\bottom_tracking_openfield_HD_01-JJM-2020-08-20\videos\07132020_d1fmr5openfield_397_1_HDtest/CollectedData_JJM.h5'. skipping
+  warnings.warn(f"Could not find '{fn+'.h5'}'. skipping")
+paths converted

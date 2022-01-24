@@ -1,0 +1,12 @@
+CUDA-powered GPUs also support programming frameworks such as OpenMP, OpenACC
+and OpenCL; and HIP by compiling such code to CUDA. 
+Could not find conda environment: tensorflow-gpu-env
+You can list all discoverable environments with `conda info --envs`.
+
+config file is: /projects/b1118/behaviorvideos/rotary_wheel_side_view-JJM-2021-09-17/config.yaml
+Traceback (most recent call last):
+  File "dlc_evaluate_network.py", line 5, in <module>
+    import deeplabcut
+  File "/home/jma819/DeepLabCut/deeplabcut/__init__.py", line 14, in <module>
+    import tensorflow as tf
+ModuleNotFoundError: No module named 'tensorflow'

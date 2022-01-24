@@ -10,10 +10,11 @@
 #SBATCH --job-name="deeplabcut_openfieldrun"
 
 module purge all
-module load cuda/cuda-9.2
-module load anaconda3/2018.12
+module load cuda/11.2.1-gcc-10.2.0
+module load python/anaconda3
 
-source activate tensorflow-gpu-env
+source activate tensorflow-2.6-py38-dlc
+
 
 cd /home/jma819/quest_deeplabcutscripts
 

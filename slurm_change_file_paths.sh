@@ -13,7 +13,7 @@ module purge all
 module load cuda/cuda-9.2
 module load anaconda3/2018.12
 
-source activate tensorflow-gpu-env
+source activate py36_tensorflow_gpu_1_12_1
 
 cd /home/jma819/quest_deeplabcutscripts
 

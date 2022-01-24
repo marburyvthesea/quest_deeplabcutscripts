@@ -1,0 +1,57 @@
+CUDA-powered GPUs also support programming frameworks such as OpenMP, OpenACC
+and OpenCL; and HIP by compiling such code to CUDA. 
+config file is: /projects/b1118/behaviorvideos/rotarod_side_view_multi_animal-JJM-2021-08-25/config.yaml
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:523: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:524: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/jma819/.conda/envs/tensorflow-gpu-env/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:532: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+0it [00:00, ?it/s]1it [00:02,  2.17s/it]2it [00:02,  1.60s/it]3it [00:02,  1.19s/it]4it [00:02,  1.11it/s]5it [00:03,  1.41it/s]6it [00:03,  1.73it/s]7it [00:03,  1.96it/s]8it [00:04,  2.34it/s]9it [00:04,  2.72it/s]/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/evaluate_multianimal.py:274: RuntimeWarning: All-NaN slice encountered
+  distnorm[imageindex] = np.nanmax(lengths)
+10it [00:04,  3.10it/s]11it [00:04,  3.42it/s]12it [00:04,  3.57it/s]13it [00:05,  3.78it/s]14it [00:05,  4.04it/s]15it [00:05,  4.32it/s]16it [00:05,  4.58it/s]17it [00:05,  4.67it/s]18it [00:06,  4.83it/s]19it [00:06,  5.00it/s]20it [00:06,  5.12it/s]21it [00:07,  3.40it/s]22it [00:07,  3.66it/s]23it [00:07,  3.86it/s]24it [00:07,  4.03it/s]25it [00:07,  4.18it/s]26it [00:08,  4.42it/s]27it [00:08,  3.68it/s]28it [00:08,  4.01it/s]29it [00:08,  4.15it/s]30it [00:09,  4.40it/s]31it [00:09,  4.43it/s]32it [00:09,  4.46it/s]33it [00:09,  4.43it/s]34it [00:09,  4.60it/s]35it [00:10,  4.76it/s]36it [00:10,  4.69it/s]37it [00:10,  5.03it/s]38it [00:10,  5.10it/s]39it [00:10,  5.14it/s]40it [00:11,  5.32it/s]41it [00:11,  4.41it/s]42it [00:11,  4.61it/s]43it [00:11,  4.74it/s]44it [00:12,  4.63it/s]45it [00:12,  4.73it/s]46it [00:12,  4.68it/s]47it [00:12,  3.90it/s]48it [00:13,  4.19it/s]49it [00:13,  4.48it/s]50it [00:13,  4.41it/s]51it [00:13,  4.46it/s]52it [00:13,  4.62it/s]53it [00:14,  4.70it/s]54it [00:14,  4.80it/s]55it [00:14,  4.92it/s]56it [00:14,  5.04it/s]57it [00:14,  5.07it/s]58it [00:15,  5.11it/s]59it [00:15,  5.05it/s]60it [00:15,  4.98it/s]
+/home/jma819/DeepLabCut/deeplabcut/pose_estimation_tensorflow/evaluate_multianimal.py:366: FutureWarning: The signature of `Series.to_csv` was aligned to that of `DataFrame.to_csv`, and argument 'header' will change its default value from False to True: please pass an explicit value to suppress this warning.
+  sd.to_csv(write_path.replace("dist.csv", "sd.csv"))
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Running  DLC_resnet50_rotarod_side_view_multi_animalAug25shuffle1_200000  with # of trainingiterations: 200000
+Initializing ResNet
+Activating extracting of PAFs
+Analyzing data...
+##########################################&1
+Euclidean distance statistics per individual (in pixels)
+                       min       max      mean       std  percentile_25  percentile_50  percentile_75
+individuals                                                                                          
+individual_left   1.180707  3.820837  2.436574  1.054321       1.830055       2.372418       2.986797
+individual_right  1.113771  3.437998  2.295495  0.963397       1.738957       2.329076       2.861694
+single            0.702501  3.104507  1.814454  0.847361       1.257603       1.780326       2.298720
+##########################################
+Euclidean distance statistics per bodypart (in pixels)
+                   min       max      mean       std  percentile_25  percentile_50  percentile_75
+bodyparts                                                                                        
+snout         1.857044  2.744778  2.300911  0.931459       2.078978       2.300911       2.522844
+ear_L         1.806753  2.598400  2.202577  0.746372       2.004665       2.202577       2.400489
+ear_R         1.998649  3.020972  2.509810  0.956768       2.254230       2.509810       2.765391
+front_paw_L   2.338941  2.673537  2.506239  0.946381       2.422590       2.506239       2.589888
+front_paw_R   2.446663  2.702935  2.574799  1.159755       2.510731       2.574799       2.638867
+rear_paw_L    2.331304  2.680041  2.505673  1.035697       2.418488       2.505673       2.592857
+rear_paw_R    2.151437  2.289500  2.220468  0.624802       2.185953       2.220468       2.254984
+back          1.958502  2.590644  2.274573  0.772077       2.116537       2.274573       2.432608
+tail_base     2.241200  2.429878  2.335539  0.711548       2.288369       2.335539       2.382708
+mid_tail      1.726404  2.067336  1.896870  0.642868       1.811637       1.896870       1.982103
+tail_tip      3.336351  3.336351  3.336351       NaN       3.336351       3.336351       3.336351
+rod_UL_left   1.800092  1.800092  1.800092       NaN       1.800092       1.800092       1.800092
+rod_UR_left   2.431633  2.431633  2.431633       NaN       2.431633       2.431633       2.431633
+rod_LL_left   1.351959  1.351959  1.351959       NaN       1.351959       1.351959       1.351959
+rod_LR_left   1.366740  1.366740  1.366740       NaN       1.366740       1.366740       1.366740
+rod_UL_right  2.039290  2.039290  2.039290       NaN       2.039290       2.039290       2.039290
+rod_UR_right  2.055719  2.055719  2.055719       NaN       2.055719       2.055719       2.055719
+rod_LL_right  1.547214  1.547214  1.547214       NaN       1.547214       1.547214       1.547214
+rod_LR_right  1.913170  1.913170  1.913170       NaN       1.913170       1.913170       1.913170
+Done and results stored for snapshot:  snapshot-200000
+finished evaluating
