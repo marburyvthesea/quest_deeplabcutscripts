@@ -1,0 +1,10 @@
+config file is: /projects/p30771/dlc_analysis/SPRT-NY-2022-08-15/config.yaml
+directory with behavior videos is: /scratch/jma819/behavCamData/SPRT/20230119_photosync_SPRT/20230119_T0/
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Creating labeled video for  20230119-13-37-57_T0-437_DMK
+Traceback (most recent call last):
+  File "ma_dlc_create_labelled_videos.py", line 18, in <module>
+    deeplabcut.create_video_with_all_detections(path_config_file, avi_list)
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/utils/make_labeled_video.py", line 834, in create_video_with_all_detections
+    with open(full_pickle, "rb") as file:
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/jma819/behavCamData/SPRT/20230119_photosync_SPRT/20230119_T0/20230119-13-37-57_T0-437_DMKDLC_resnet50_SPRTAug15shuffle1_1000000_full.pickle'

@@ -9,14 +9,12 @@
 #SBATCH -t 04:00:00 # 1 hour in this example. gengpu has a max walltime of 48 hours.
 #SBATCH --job-name="deeplabcut_openfieldrun"
 
+
 module purge all
-module load cuda/cuda-9.2
-module load anaconda3/2018.12
+module load cuda/11.2.1-gcc-10.2.0
+module load python/anaconda3
 
-source activate py36_tensorflow_gpu_1_12_1
-
-cd /home/jma819/quest_deeplabcutscripts
-
+source activate tensorflow-2.6-py38-dlc
 
 INPUT_path_config_file=$1
 

@@ -1,0 +1,5 @@
+config file is: /projects/p30771/dlc_analysis/RotaryWheelTracking_2-JJM-2021-08-17/config.yaml
+/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/utils/conversioncode.py:72: FutureWarning: The default value of regex will change from True to False in a future version. In addition, single character regular expressions will *not* be treated as literal strings when regex=True.
+  Data.index = Data.index.str.replace("\\", "/")
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+paths converted

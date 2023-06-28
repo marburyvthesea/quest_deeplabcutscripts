@@ -1,0 +1,26 @@
+config file is: /projects/b1118/dlc_analysis/newOpenFieldTracking_whiteBottom-JJM-2023-06-13/config.yaml
+directory with behavior videos is: /scratch/jma819/behavCamData/DI_openField_novelObject/RotatedVideos/M3/
+Loading DLC 2.3.5...
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Creating labeled video for  M3 day 8
+Traceback (most recent call last):
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/utils/auxfun_multianimal.py", line 217, in LoadFullMultiAnimalData
+    with open(data_file, "rb") as handle:
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/jma819/behavCamData/DI_openField_novelObject/RotatedVideos/M3/M3 day 8DLC_dlcrnetms5_newOpenFieldTracking_whiteBottomJun13shuffle1_200000_full.pickle'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "ma_dlc_create_labelled_videos.py", line 18, in <module>
+    deeplabcut.create_video_with_all_detections(path_config_file, avi_list)
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/utils/make_labeled_video.py", line 1049, in create_video_with_all_detections
+    data, _ = auxfun_multianimal.LoadFullMultiAnimalData(h5file)
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/utils/auxfun_multianimal.py", line 220, in LoadFullMultiAnimalData
+    data = shelve.open(data_file, flag="r")
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/shelve.py", line 243, in open
+    return DbfilenameShelf(filename, flag, protocol, writeback)
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/shelve.py", line 227, in __init__
+    Shelf.__init__(self, dbm.open(filename, flag), protocol, writeback)
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/dbm/__init__.py", line 85, in open
+    raise error[0]("db file doesn't exist; "
+dbm.error: db file doesn't exist; use 'c' or 'n' flag to create a new db

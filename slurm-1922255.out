@@ -1,0 +1,7 @@
+config file is: /projects/p30771/dlc_analysis/RotaryWheelTracking_2-JJM-2021-08-17/config.yaml
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Running  DLC_resnet50_RotaryWheelTracking_2Aug17shuffle1_300000  with # of training iterations: 300000
+This net has already been evaluated!
+Plotting...(attention scale might be inconsistent in comparison to when data was analyzed; i.e. if you used rescale)
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:00<00:12,  1.52it/s] 10%|█         | 2/20 [00:00<00:08,  2.17it/s] 15%|█▌        | 3/20 [00:01<00:06,  2.44it/s] 20%|██        | 4/20 [00:01<00:05,  2.74it/s] 25%|██▌       | 5/20 [00:01<00:05,  2.89it/s] 30%|███       | 6/20 [00:02<00:04,  3.09it/s] 35%|███▌      | 7/20 [00:02<00:04,  3.23it/s] 40%|████      | 8/20 [00:02<00:03,  3.29it/s] 45%|████▌     | 9/20 [00:03<00:03,  3.35it/s] 50%|█████     | 10/20 [00:03<00:02,  3.34it/s] 55%|█████▌    | 11/20 [00:03<00:02,  3.42it/s] 60%|██████    | 12/20 [00:04<00:02,  3.04it/s] 65%|██████▌   | 13/20 [00:04<00:02,  3.22it/s] 70%|███████   | 14/20 [00:04<00:01,  3.32it/s] 75%|███████▌  | 15/20 [00:04<00:01,  3.36it/s] 80%|████████  | 16/20 [00:05<00:01,  3.34it/s] 85%|████████▌ | 17/20 [00:05<00:00,  3.38it/s] 90%|█████████ | 18/20 [00:05<00:00,  3.41it/s] 95%|█████████▌| 19/20 [00:06<00:00,  3.50it/s]100%|██████████| 20/20 [00:06<00:00,  3.53it/s]100%|██████████| 20/20 [00:06<00:00,  3.16it/s]
+finished evaluating

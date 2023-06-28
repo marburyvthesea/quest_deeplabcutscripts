@@ -13,8 +13,8 @@ behav_cam_directory = sys.argv[2]
 
 avi_list = [os.path.join(dp, f) for dp, dn, fn in os.walk(os.path.expanduser(behav_cam_directory)) for f in fn if f.endswith('.avi')]
 
-scorername = 'DLC_resnet50_rotarod_side_view_multi_animalAug25shuffle1_200000'
+#scorername = 'DLC_resnet50_rotarod_side_view_multi_animalAug25shuffle1_200000'
 
-deeplabcut.create_video_with_all_detections(path_config_file, avi_list, DLCscorername=scorername)
+deeplabcut.create_video_with_all_detections(path_config_file, avi_list)
 
 print('finished creating labeled videos!')

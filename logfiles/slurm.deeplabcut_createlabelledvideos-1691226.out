@@ -1,0 +1,7 @@
+config file is: /projects/p30771/dlc_analysis/SPRT-NY-2022-08-15/config.yaml
+directory with behavior videos is: /scratch/jma819/behavCamData/SPRT/20230119_photosync_SPRT/20230119_T0/
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Traceback (most recent call last):
+  File "ma_dlc_create_labelled_videos.py", line 18, in <module>
+    deeplabcut.create_video_with_all_detections(path_config_file, avi_list, DLCscorername=scorername)
+TypeError: create_video_with_all_detections() got an unexpected keyword argument 'DLCscorername'

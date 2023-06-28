@@ -1,0 +1,14 @@
+config file is: /projects/b1118/dlc_analysis/newOpenFieldTracking_whiteBottom-JJM-2023-06-13/config.yaml
+directory with behavior videos is: /scratch/jma819/behavCamData/openFieldSetupTracking/06212023/CC02558091/_1/ce_videos/
+2023-06-28 11:16:17.516157: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-06-28 11:16:20.211004: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 38268 MB memory:  -> device: 0, name: NVIDIA A100-PCIE-40GB, pci bus id: 0000:06:00.0, compute capability: 8.0
+/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/tensorflow/python/keras/engine/base_layer_v1.py:1694: UserWarning: `layer.apply` is deprecated and will be removed in a future version. Please use `layer.__call__` method instead.
+  warnings.warn('`layer.apply` is deprecated and '
+Loading DLC 2.3.5...
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Using snapshot-200000 for model /projects/b1118/dlc_analysis/newOpenFieldTracking_whiteBottom-JJM-2023-06-13/dlc-models/iteration-0/newOpenFieldTracking_whiteBottomJun13-trainset95shuffle1
+No video(s) were found. Please check your paths and/or 'video_type'.
+finished video analysis!, beginning retraining...
+finished retraining!, creating labellef videos...
+finished creating labeled videos!

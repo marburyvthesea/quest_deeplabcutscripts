@@ -1,0 +1,20 @@
+config file is: /projects/p30771/dlc_analysis/OpenFieldArena-JJM-2022-07-18/config.yaml
+directory with behavior videos is: /projects/b1118/behaviorvideos/openfield_NAMtest/06292022/_2/
+DLC loaded in light mode; you cannot use any GUI (labeling, relabeling and standalone GUI)
+Traceback (most recent call last):
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/pose_estimation_tensorflow/predict_videos.py", line 180, in analyze_videos
+    dlc_cfg = load_config(str(path_test_config))
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/pose_estimation_tensorflow/config.py", line 62, in load_config
+    return cfg_from_file(filename)
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/pose_estimation_tensorflow/config.py", line 40, in cfg_from_file
+    with open(filename, "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/projects/p30771/dlc_analysis/OpenFieldArena-JJM-2022-07-18/dlc-models/iteration-0/OpenFieldArenaJul18-trainset95shuffle1/test/pose_cfg.yaml'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "dlc_analyze_new_videos.py", line 16, in <module>
+    deeplabcut.analyze_videos(path_config_file, avi_list, videotype='.avi')
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/pose_estimation_tensorflow/predict_videos.py", line 182, in analyze_videos
+    raise FileNotFoundError(
+FileNotFoundError: It seems the model for shuffle 1 and trainFraction 0.95 does not exist.

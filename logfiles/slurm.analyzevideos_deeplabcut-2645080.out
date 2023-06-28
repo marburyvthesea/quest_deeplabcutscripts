@@ -1,0 +1,6 @@
+config file is: /projects/b1118/dlc_analysis/newOpenFieldTracking_whiteBottom-JJM-2023-06-13/config.yaml
+directory with behavior videos is: /scratch/jma819/behavCamData/openFieldSetupTracking/06212023/CC02558091/_1/ce_videos/
+  File "dlc_analyze_new_videos.py", line 28
+    print('finished retraining!, creating labellef videos...')
+                                                             ^
+TabError: inconsistent use of tabs and spaces in indentation
