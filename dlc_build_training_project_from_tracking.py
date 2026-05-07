@@ -410,7 +410,7 @@ def main() -> None:
     update_config(config_path, args)
 
     total_labels = build_labels_for_pairs(cv2, args, config_path, pairs)
-    deeplabcut.convertcsv2h5(str(config_path))
+    deeplabcut.convertcsv2h5(str(config_path), userfeedback=False)
 
     if args.create_training_dataset:
         deeplabcut.create_training_dataset(str(config_path))
