@@ -1,0 +1,3 @@
+video_path,csv_path
+/path/to/session_01.avi,/path/to/session_01_LocationOutput.csv
+/path/to/session_02.avi,/path/to/session_02_LocationOutput.csv
