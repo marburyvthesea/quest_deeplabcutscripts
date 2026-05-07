@@ -1,0 +1,6 @@
+# One directory or file path per line.
+# Directories are scanned for *.avi <-> *_LocationOutput.csv pairs.
+# Files may be either the .avi or the matching _LocationOutput.csv.
+
+/scratch/jma819/behavCamData/YZ_linearTrackExperiments/BehavCamConcactenated_311/rotated_and_cropped_avi
+/scratch/jma819/behavCamData/YZ_linearTrackExperiments/BehavCamConcactenated_326/rotated_and_cropped_avi
