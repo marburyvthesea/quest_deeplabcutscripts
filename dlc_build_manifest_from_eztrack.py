@@ -13,7 +13,7 @@ Typical use on Quest:
 Or, for a curated subset of mice/sessions:
 
     python dlc_build_manifest_from_eztrack.py \
-      --paths \
+      --input \
       /scratch/jma819/behavCamData/YZ_linearTrackExperiments/BehavCamConcactenated_311/rotated_and_cropped_avi \
       /scratch/jma819/behavCamData/YZ_linearTrackExperiments/BehavCamConcactenated_326/rotated_and_cropped_avi \
       --output selected_manifest.csv
@@ -45,12 +45,15 @@ def parse_args() -> argparse.Namespace:
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
+        "--input",
         "--paths",
+        dest="paths",
         nargs="*",
         default=[],
         help=(
             "Directories or individual files to inspect. Files may be either "
-            "the .avi or the matching _LocationOutput.csv."
+            "the .avi or the matching _LocationOutput.csv. "
+            "`--input` and `--paths` are interchangeable."
         ),
     )
     parser.add_argument(
