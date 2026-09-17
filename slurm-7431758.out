@@ -1,0 +1,119 @@
+
+The following have been reloaded with a version change:
+  1) binutils/2.35-gcc-4.8.5 => binutils/2.40-gcc-4.8.5
+  2) zlib/1.2.11-gcc-4.8.5 => zlib/1.2.13-gcc-4.8.5
+  3) zstd/1.4.5-gcc-4.8.5 => zstd/1.5.5-gcc-4.8.5
+
+config file is: /projects/b1118/dlc_analysis/LinearTrack_Mice-JJM-2026-05-07/config.yaml
+Config:
+{'all_joints': [[0]],
+ 'all_joints_names': ['mouse_center'],
+ 'alpha_r': 0.02,
+ 'apply_prob': 0.5,
+ 'batch_size': 1,
+ 'contrast': {'clahe': True,
+              'claheratio': 0.1,
+              'histeq': True,
+              'histeqratio': 0.1},
+ 'convolution': {'edge': False,
+                 'emboss': {'alpha': [0.0, 1.0], 'strength': [0.5, 1.5]},
+                 'embossratio': 0.1,
+                 'sharpen': False,
+                 'sharpenratio': 0.3},
+ 'crop_pad': 0,
+ 'cropratio': 0.4,
+ 'dataset': 'training-datasets/iteration-0/UnaugmentedDataSet_LinearTrack_MiceMay7/LinearTrack_Mice_JJM95shuffle1.mat',
+ 'dataset_type': 'default',
+ 'decay_steps': 30000,
+ 'deterministic': False,
+ 'display_iters': 1000,
+ 'fg_fraction': 0.25,
+ 'global_scale': 0.8,
+ 'init_weights': '/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/pose_estimation_tensorflow/models/pretrained/resnet_v1_50.ckpt',
+ 'intermediate_supervision': False,
+ 'intermediate_supervision_layer': 12,
+ 'location_refinement': True,
+ 'locref_huber_loss': True,
+ 'locref_loss_weight': 0.05,
+ 'locref_stdev': 7.2801,
+ 'log_dir': 'log',
+ 'lr_init': 0.0005,
+ 'max_input_size': 1500,
+ 'mean_pixel': [123.68, 116.779, 103.939],
+ 'metadataset': 'training-datasets/iteration-0/UnaugmentedDataSet_LinearTrack_MiceMay7/Documentation_data-LinearTrack_Mice_95shuffle1.pickle',
+ 'min_input_size': 64,
+ 'mirror': False,
+ 'multi_stage': False,
+ 'multi_step': [[0.005, 10000],
+                [0.02, 430000],
+                [0.002, 730000],
+                [0.001, 1030000]],
+ 'net_type': 'resnet_50',
+ 'num_joints': 1,
+ 'optimizer': 'sgd',
+ 'pairwise_huber_loss': False,
+ 'pairwise_predict': False,
+ 'partaffinityfield_predict': False,
+ 'pos_dist_thresh': 17,
+ 'project_path': '/gpfs/projects/b1118/dlc_analysis/LinearTrack_Mice-JJM-2026-05-07',
+ 'regularize': False,
+ 'rotation': 25,
+ 'rotratio': 0.4,
+ 'save_iters': 50000,
+ 'scale_jitter_lo': 0.5,
+ 'scale_jitter_up': 1.25,
+ 'scoremap_dir': 'test',
+ 'shuffle': True,
+ 'snapshot_prefix': '/projects/b1118/dlc_analysis/LinearTrack_Mice-JJM-2026-05-07/dlc-models/iteration-0/LinearTrack_MiceMay7-trainset95shuffle1/train/snapshot',
+ 'stride': 8.0,
+ 'weigh_negatives': False,
+ 'weigh_only_present_joints': False,
+ 'weigh_part_predictions': False,
+ 'weight_decay': 0.0001}
+2026-05-11 05:12:07.791403: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-05-11 05:12:10.279746: W tensorflow/core/common_runtime/gpu/gpu_bfc_allocator.cc:39] Overriding allow_growth setting because the TF_FORCE_GPU_ALLOW_GROWTH environment variable is set. Original config value was 0.
+2026-05-11 05:12:10.279880: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 38325 MB memory:  -> device: 0, name: NVIDIA A100-PCIE-40GB, pci bus id: 0000:06:00.0, compute capability: 8.0
+2026-05-11 05:12:10.654007: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 38325 MB memory:  -> device: 0, name: NVIDIA A100-PCIE-40GB, pci bus id: 0000:06:00.0, compute capability: 8.0
+2026-05-11 05:12:18.365348: I tensorflow/stream_executor/cuda/cuda_dnn.cc:366] Loaded cuDNN version 8101
+/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/tensorflow/python/keras/engine/base_layer_v1.py:1694: UserWarning: `layer.apply` is deprecated and will be removed in a future version. Please use `layer.__call__` method instead.
+  warnings.warn('`layer.apply` is deprecated and '
+iteration: 1000 loss: 0.0413 lr: 0.005
+iteration: 2000 loss: 0.0209 lr: 0.005
+iteration: 3000 loss: 0.0183 lr: 0.005
+iteration: 4000 loss: 0.0190 lr: 0.005
+iteration: 5000 loss: 0.0177 lr: 0.005
+iteration: 6000 loss: 0.0176 lr: 0.005
+iteration: 7000 loss: 0.0174 lr: 0.005
+iteration: 8000 loss: 0.0155 lr: 0.005
+iteration: 9000 loss: 0.0164 lr: 0.005
+iteration: 10000 loss: 0.0150 lr: 0.005
+iteration: 11000 loss: 0.0257 lr: 0.02
+iteration: 12000 loss: 0.0250 lr: 0.02
+iteration: 13000 loss: 0.0203 lr: 0.02
+iteration: 14000 loss: 0.0207 lr: 0.02
+iteration: 15000 loss: 0.0185 lr: 0.02
+iteration: 16000 loss: 0.0194 lr: 0.02
+iteration: 17000 loss: 0.0197 lr: 0.02
+iteration: 18000 loss: 0.0169 lr: 0.02
+iteration: 19000 loss: 0.0162 lr: 0.02
+iteration: 20000 loss: 0.0180 lr: 0.02
+iteration: 21000 loss: 0.0176 lr: 0.02
+iteration: 22000 loss: 0.0177 lr: 0.02
+iteration: 23000 loss: 0.0176 lr: 0.02
+iteration: 24000 loss: 0.0174 lr: 0.02
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/pose_estimation_tensorflow/core/train.py", line 83, in load_and_enqueue
+    batch_np = dataset.next_batch()
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/pose_estimation_tensorflow/datasets/pose_imgaug.py", line 406, in next_batch
+    ) = self.get_batch()
+  File "/home/jma819/.conda/envs/tensorflow-2.6-py38-dlc/lib/python3.8/site-packages/deeplabcut/pose_estimation_tensorflow/datasets/pose_imgaug.py", line 321, in get_batch
+    raise ValueError(
+ValueError: Image size [ 36 654] may be too small. Consider decreasing `min_input_size` and/or increasing `global_scale` in the train/pose_cfg.yaml.
+iteration: 25000 loss: 0.0144 lr: 0.02
+slurmstepd: error: *** JOB 7431758 ON qgpu0204 CANCELLED AT 2026-05-13T05:15:29 DUE TO TIME LIMIT ***

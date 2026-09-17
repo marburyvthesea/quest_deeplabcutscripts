@@ -1,0 +1,67 @@
+{
+  "session": "C",
+  "source": "FIJI ROI measurements on the labeled mp4",
+  "frame_size_px": [
+    720,
+    480
+  ],
+  "doors": {
+    "DS0": {
+      "x": 373,
+      "y": 184,
+      "w": 80,
+      "h": 20
+    }
+  },
+  "maze_outer": {
+    "x": 127,
+    "y": 75,
+    "w": 561,
+    "h": 318
+  },
+  "exclude_islands": [
+    {
+      "x": 214,
+      "y": 156,
+      "w": 162,
+      "h": 155
+    },
+    {
+      "x": 448,
+      "y": 159,
+      "w": 150,
+      "h": 156
+    }
+  ],
+  "door_log_frames": {
+    "fall": [
+      [
+        5133,
+        5161
+      ],
+      [
+        7088,
+        7125
+      ],
+      [
+        11185,
+        11221
+      ]
+    ],
+    "raise_": [
+      [
+        5323,
+        5351
+      ],
+      [
+        7390,
+        7424
+      ],
+      [
+        11264,
+        11318
+      ]
+    ]
+  },
+  "notes": "frame_size_px confirmed 720x480 by manifest_images.py extracting from C.avi on Quest; equals the labeled mp4 these ROIs were drawn on and the h5 row count (251334), so ROI and label coordinates share one frame."
+}
