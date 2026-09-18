@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+
 # slurm_dlc_finetune.sh — fine-tune SuperAnimal-TopViewMouse on blob-tracker labels.
 #
 # Same partition/account/env as slurm_superanimal_topview.sh (gengpu / p30771 /

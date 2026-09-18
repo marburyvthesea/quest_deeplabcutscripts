@@ -33,7 +33,7 @@ CONFIG = """\
 # This project trains POSITION, not posture.
 Task: {task}
 scorer: {scorer}
-date: {date}
+date: "{date}"
 multianimalproject: false
 identity:
 project_path: {project_path}
@@ -74,7 +74,6 @@ move2corner: true
 start: 0
 stop: 1
 numframes2pick: {nframes}
-alphavalue: 0.7
 """
 
 
