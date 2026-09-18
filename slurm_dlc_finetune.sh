@@ -1,5 +1,4 @@
 #!/bin/bash
-set -euo pipefail
 
 # slurm_dlc_finetune.sh — fine-tune SuperAnimal-TopViewMouse on blob-tracker labels.
 #
@@ -40,6 +39,9 @@ set -euo pipefail
 #SBATCH -t 12:00:00
 #SBATCH --job-name="dlc_finetune"
 #SBATCH --output /home/jma819/quest_deeplabcutscripts/logfiles/slurm.%x-%j.out
+
+# Keep shell commands below the complete SBATCH block so Slurm reads every directive.
+set -euo pipefail
 
 module purge all
 module load anaconda3
