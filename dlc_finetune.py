@@ -32,6 +32,10 @@ Detector defaults to fasterrcnn_mobilenet_v3_large_fpn to match the snapshots
 already in your model-zoo cache from the inference run, so the job does not need
 HuggingFace access from a compute node.
 
+DLC 3.0.1 mistakenly sends single-animal memory replay through its multi-animal
+converter because ProjectConfig supplies a default `individuals` field. This
+script redirects that one code path to DLC's own single-animal converter.
+
 Run dlc_probe.py first.
 
   python dlc_finetune.py --config .../config.yaml --epochs 100
@@ -42,6 +46,21 @@ import os
 import sys
 
 SUPER_ANIMAL = "superanimal_topviewmouse"
+
+
+def patch_single_animal_memory_replay(dlc_version, multianimal):
+    """Work around DLC 3.0.1 selecting the multi-animal replay converter."""
+    if multianimal or not str(dlc_version).startswith("3.0.1"):
+        return False
+
+    from deeplabcut.pose_estimation_pytorch.modelzoo import memory_replay
+
+    memory_replay.MaDLCPoseDataset = memory_replay.SingleDLCPoseDataset
+    print(
+        "DLC 3.0.1 single-animal memory-replay compatibility fix enabled",
+        flush=True,
+    )
+    return True
 
 
 def main():
@@ -70,15 +89,17 @@ def main():
     print(f"deeplabcut {deeplabcut.__version__}", flush=True)
     cfg = os.path.abspath(a.config)
 
+    # Read the raw YAML so DLC's schema defaults do not make a single-animal
+    # project appear multi-animal merely because `individuals` was omitted.
+    try:
+        from deeplabcut.core.config import read_config_as_dict as _read
+    except ImportError:
+        from deeplabcut.utils.auxiliaryfunctions import read_plainconfig as _read
+    c = _read(cfg)
+    multianimal = bool(c.get("multianimalproject", False))
+
     if not a.skip_dataset:
         from deeplabcut.modelzoo.utils import create_conversion_table
-        # 3.0.1 moved this: auxiliaryfunctions.read_config is gone, and
-        # core.config.read_config returns a pydantic ProjectConfig, not a dict.
-        try:
-            from deeplabcut.core.config import read_config_as_dict as _read
-        except ImportError:
-            from deeplabcut.utils.auxiliaryfunctions import read_plainconfig as _read
-        c = _read(cfg)
         bp = list(c["bodyparts"])
 
         # Identity conversion table. with_decoder=True is refused by
@@ -125,6 +146,9 @@ def main():
         deeplabcut.create_training_dataset(
             cfg, net_type=a.net_type, detector_type=a.detector_name, weight_init=wi)
         print("training dataset created", flush=True)
+
+    if not a.no_memory_replay:
+        patch_single_animal_memory_replay(deeplabcut.__version__, multianimal)
 
     tkw = dict(shuffle=a.shuffle)
     tsig = inspect.signature(deeplabcut.train_network).parameters
