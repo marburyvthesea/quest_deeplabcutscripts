@@ -61,7 +61,29 @@ non-centre keypoints as unusable, not merely approximate.
   python dlc_analyze_finetuned.py --config .../TmazeBlob-blobtracker-2026-09-17/config.yaml \
       --videos /scratch/jma819/T_maze_recordings/behaviorVIdeos/F.avi
 """
-import argparse, inspect, os, sys
+import argparse, glob, inspect, os, sys
+
+
+def find_labeled_videos(video, destfolder):
+    """Return nonempty labeled videos matching one source video."""
+    stem = os.path.splitext(os.path.basename(video))[0]
+    pattern = os.path.join(destfolder, glob.escape(stem) + "*labeled.mp4")
+    return sorted(path for path in glob.glob(pattern)
+                  if os.path.isfile(path) and os.path.getsize(path) > 0)
+
+
+def validate_labeled_video_result(video, destfolder, result):
+    """Validate DLC's inconsistent return value against the actual output."""
+    outputs = find_labeled_videos(video, destfolder)
+    failed = result is False or (
+        isinstance(result, (list, tuple))
+        and (not result or any(item is False for item in result))
+    )
+    if failed or not outputs:
+        raise RuntimeError(
+            f"labeled video was not created: result={result}, "
+            f"matching_outputs={outputs}")
+    return outputs
 
 
 def main():
@@ -123,8 +145,15 @@ def main():
             try:
                 created = deeplabcut.create_labeled_video(
                     cfg, [v], **{k: w for k, w in lkw.items() if k in lsig})
-                if not created or not all(created):
-                    raise RuntimeError(f"labeled video was not created: {created}")
+                outputs = validate_labeled_video_result(v, d, created)
+                if isinstance(created, (list, tuple)) and any(
+                        result is None for result in created):
+                    print("DLC skipped an existing labeled video; verified output:",
+                          flush=True)
+                else:
+                    print("labeled video output:", flush=True)
+                for output in outputs:
+                    print(f"  {output}", flush=True)
             except Exception as e:
                 print(f"create_labeled_video failed ({type(e).__name__}: {e})",
                       flush=True)
