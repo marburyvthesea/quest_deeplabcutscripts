@@ -47,6 +47,20 @@ fi
 echo "interpreter: $PY"
 "$PY" -c "import deeplabcut, torch; print('deeplabcut', deeplabcut.__version__, '| torch', torch.__version__, '| cuda', torch.cuda.is_available())"
 
+# Abort rather than fall back to CPU. analyze_videos does not refuse a missing
+# GPU -- it just runs the top-down HRNet on CPU, which on a 250k-frame video
+# means the job burns its entire wall clock and is killed with nothing written.
+# A torch built for a newer CUDA than the node's driver shows up here as
+# `cuda False` with "driver is too old", and that is fatal, not a warning.
+if ! "$PY" -c "import torch, sys; sys.exit(0 if torch.cuda.is_available() else 1)"; then
+  echo "torch cannot see a GPU on this node -- refusing to run on CPU."
+  "$PY" -c "import torch; print('torch built for CUDA', torch.version.cuda)"
+  nvidia-smi --query-gpu=driver_version --format=csv,noheader 2>/dev/null \
+    || echo "nvidia-smi unavailable"
+  echo "fix the torch/driver mismatch, then resubmit"
+  exit 1
+fi
+
 cd /home/jma819/quest_deeplabcutscripts
 
 CONFIG=$1
