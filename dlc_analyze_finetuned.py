@@ -74,6 +74,8 @@ def main():
     p.add_argument("--shuffle", type=int, default=1)
     p.add_argument("--labeled-video", action="store_true",
                    help="also render a labelled mp4 (slow on a 250k-frame video)")
+    p.add_argument("--label-only", action="store_true",
+                   help="render from existing analysis files without rerunning inference")
     p.add_argument("--pcutoff", type=float, default=0.01,
                    help="deliberately low: this network's likelihoods are NOT "
                         "calibrated (see note below), so 0.6 would draw nothing")
@@ -105,20 +107,29 @@ def main():
                                  "dlc_out_finetuned")
         os.makedirs(d, exist_ok=True)
         print(f"\n=== {os.path.basename(v)} -> {d}", flush=True)
-        kw = dict(shuffle=a.shuffle, destfolder=d, save_as_csv=True)
-        sig = inspect.signature(deeplabcut.analyze_videos).parameters
-        scorer = deeplabcut.analyze_videos(cfg, [v], **{k: w for k, w in kw.items()
-                                                        if k in sig})
-        print(f"scorer    : {scorer}", flush=True)
-        if a.labeled_video:
+        if not a.label_only:
+            kw = dict(shuffle=a.shuffle, destfolder=d, save_as_csv=True)
+            sig = inspect.signature(deeplabcut.analyze_videos).parameters
+            scorer = deeplabcut.analyze_videos(
+                cfg, [v], **{k: w for k, w in kw.items() if k in sig}
+            )
+            print(f"scorer    : {scorer}", flush=True)
+        else:
+            print("analysis  : skipped (using existing outputs)", flush=True)
+
+        if a.labeled_video or a.label_only:
             lkw = dict(shuffle=a.shuffle, destfolder=d, pcutoff=a.pcutoff)
             lsig = inspect.signature(deeplabcut.create_labeled_video).parameters
             try:
-                deeplabcut.create_labeled_video(
+                created = deeplabcut.create_labeled_video(
                     cfg, [v], **{k: w for k, w in lkw.items() if k in lsig})
+                if not created or not all(created):
+                    raise RuntimeError(f"labeled video was not created: {created}")
             except Exception as e:
                 print(f"create_labeled_video failed ({type(e).__name__}: {e})",
                       flush=True)
+                if a.label_only:
+                    raise
     print("\ndone", flush=True)
 
 
