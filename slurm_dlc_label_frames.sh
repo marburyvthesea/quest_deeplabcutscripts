@@ -26,25 +26,49 @@
 #SBATCH --job-name="dlc_label_frames"
 #SBATCH --output /home/jma819/quest_deeplabcutscripts/logfiles/slurm.%x-%A_%a.out
 
+set -euo pipefail
+
 module purge all
 module load anaconda3
 
-CONDA_BASE="$(conda info --base 2>/dev/null)"
-if [ -n "$CONDA_BASE" ] && [ -f "$CONDA_BASE/etc/profile.d/conda.sh" ]; then
-  . "$CONDA_BASE/etc/profile.d/conda.sh"
-fi
-conda activate dlc3-torch 2>/dev/null || source activate dlc3-torch 2>/dev/null
-PY="$(command -v python)"
-"$PY" -c "import cv2, scipy, pandas" || {
-  echo "need cv2, scipy and pandas in this env"; exit 1; }
-
-VIDDIR=$1; PROJ=$2; shift 2
-ANIMALS=("$@")
-if [ -z "$VIDDIR" ] || [ -z "$PROJ" ] || [ "${#ANIMALS[@]}" -eq 0 ]; then
-  echo "usage: sbatch [--array=0-N] slurm_dlc_label_frames.sh <video_dir> <project_dir> <animal ...>"
+# Batch shells do not reliably inherit interactive conda activation. Use the
+# known environment directly instead of silently falling back to base Python.
+PY=${PYTHON_BIN:-/home/jma819/.conda/envs/dlc3-torch/bin/python}
+if [ ! -x "$PY" ]; then
+  echo "Python interpreter not found or not executable: $PY"
+  echo "Set PYTHON_BIN to the Python in an environment with the required packages."
   exit 1
 fi
-if [ -n "$SLURM_ARRAY_TASK_ID" ]; then
+echo "Python: $PY"
+if ! "$PY" - <<'PY'
+import sys
+from importlib import import_module
+
+required = ("cv2", "matplotlib", "numpy", "pandas", "scipy", "tables")
+errors = {}
+for name in required:
+    try:
+        import_module(name)
+    except Exception as exc:
+        errors[name] = f"{type(exc).__name__}: {exc}"
+if errors:
+    print("Python dependency check failed:", file=sys.stderr)
+    for name, error in errors.items():
+        print(f"  {name}: {error}", file=sys.stderr)
+    print("Install them in dlc3-torch before resubmitting.", file=sys.stderr)
+    raise SystemExit(1)
+PY
+then
+  exit 1
+fi
+
+if [ "$#" -lt 3 ]; then
+  echo "usage: sbatch [--array=0-N] $0 <video_dir> <project_dir> <animal ...>"
+  exit 1
+fi
+VIDDIR=$1; PROJ=$2; shift 2
+ANIMALS=("$@")
+if [ -n "${SLURM_ARRAY_TASK_ID:-}" ]; then
   if [ "$SLURM_ARRAY_TASK_ID" -ge "${#ANIMALS[@]}" ]; then
     echo "array index beyond the animal list -- nothing to do"; exit 0
   fi
