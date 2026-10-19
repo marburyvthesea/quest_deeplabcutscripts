@@ -14,8 +14,15 @@
 #   <project>/labeled-data/X/img*.png     the frames the GUI will show
 #   <project>/X_labelframes.csv           frame, stratum, old x/y
 #   <project>/X_labelframes.png           QC: where they came from
+#   <project>/X_failure_runs.csv          every run of detector failure
 #
 # The images are what you rsync to the laptop. Everything else is provenance.
+#
+# Set TRACKDIR to the directory holding blob_tracker.py output
+# (<animal>_blobtrack.csv) to enable the disagreement strata -- frames where
+# the two trackers contradict each other, which are the most informative
+# labels available. Without it those strata are simply skipped.
+# NFRAMES sets the budget per animal (default 200).
 
 #SBATCH -p normal
 #SBATCH -A p30771
@@ -85,11 +92,22 @@ for A in "${ANIMALS[@]}"; do
     [ -f "$f" ] || { echo "missing $f -- skipping $A"; continue 2; }
   done
   echo "=== $A"
+  TRACK_ARG=()
+  if [ -n "${TRACKDIR:-}" ]; then
+    TCSV="$TRACKDIR/${A}_blobtrack.csv"
+    if [ -f "$TCSV" ]; then
+      TRACK_ARG=(--track "$TCSV")
+    else
+      echo "no blob track at $TCSV -- disagreement strata skipped for $A"
+    fi
+  fi
   "$PY" dlc_label_frames.py \
     --h5 "$H5" --video "$VID" \
     --outdir "$PROJ/labeled-data/$A" \
     --manifest "$PROJ/${A}_labelframes.csv" \
     --fig "$PROJ/${A}_labelframes.png" \
+    --audit "$PROJ/${A}_failure_runs.csv" \
+    "${TRACK_ARG[@]}" \
     --n "${NFRAMES:-200}" || exit 1
 done
 

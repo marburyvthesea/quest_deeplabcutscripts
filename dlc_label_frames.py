@@ -150,9 +150,12 @@ def strata(T, n, a, seed, blob=None):
     #    DLC found nothing where the blob tracker found a gated detection, so
     #    the animal is demonstrably visible and the network demonstrably failed.
     if blob is not None:
-        bx = blob.reindex(T.frame).x.to_numpy(float)
-        by = blob.reindex(T.frame).y.to_numpy(float)
-        blob_ok = np.isfinite(bx) & np.isfinite(by)
+        Bq = blob.reindex(T.frame)
+        bx, by = Bq.x.to_numpy(float), Bq.y.to_numpy(float)
+        # gap-filled rows are the tracker's interpolation, not evidence that the
+        # animal was visible -- they must not count as a disagreement
+        blob_ok = (np.isfinite(bx) & np.isfinite(by)
+                   & ~Bq.interp.to_numpy(bool, na_value=True))
         miss = np.flatnonzero(bad & blob_ok)
         far = np.flatnonzero(ok & blob_ok &
                              (np.hypot(x - bx, y - by) > a.far_px))
@@ -370,9 +373,15 @@ def main():
         B = pd.read_csv(a.track)
         if "frame" not in B.columns:
             raise SystemExit(f"{a.track} has no 'frame' column")
-        blob = B.set_index("frame")[["x", "y"]]
-        print(f"blob track: {len(blob)} rows, "
-              f"{int(np.isfinite(blob.x).sum())} with a detection")
+        keep = ["x", "y"] + (["interp"] if "interp" in B.columns else [])
+        blob = B.set_index("frame")[keep]
+        if "interp" not in blob.columns:
+            print("WARNING: no 'interp' column -- cannot tell real blob "
+                  "detections from gap-filled ones; treating all as real")
+            blob["interp"] = False
+        real = np.isfinite(blob.x) & ~blob.interp.astype(bool)
+        print(f"blob track: {len(blob)} rows, {int(real.sum())} real detections, "
+              f"{int(blob.interp.astype(bool).sum())} gap-filled (excluded)")
 
     S, R, (gx, gy) = strata(T, a.n, a, a.seed, blob)
     brief, sust = R[R.length < a.long_run], R[R.length >= a.long_run]
