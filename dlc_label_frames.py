@@ -322,7 +322,7 @@ def qc_figure(T, S, R, gxy, long_run, path):
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    src = p.add_mutually_exclusive_group(required=True)
+    src = p.add_mutually_exclusive_group(required=False)
     src.add_argument("--h5", help="DLC .h5 from analyze_videos")
     src.add_argument("--csv", help="DLC .csv from analyze_videos")
     p.add_argument("--video", help="RAW video; omit with --no-images")
@@ -362,17 +362,18 @@ def main():
                    help="write the manifest only")
     p.add_argument("--allow-labeled", action="store_true")
     a = p.parse_args()
-
-    T = read_track(a.h5, a.csv, a.bodypart)
-    bad = int(((T.x == SENTINEL) & (T.y == SENTINEL)).sum())
-    print(f"{len(T)} frames, {bad} with no detection ({100 * bad / len(T):.1f}%), "
-          f"likelihood median {T.likelihood.median():.4f} max {T.likelihood.max():.3f}")
+    if not (a.h5 or a.csv or a.track):
+        raise SystemExit("give --h5/--csv (DLC output), or --track alone for a "
+                         "video that has never been analysed")
 
     blob = None
     if a.track:
         B = pd.read_csv(a.track)
         if "frame" not in B.columns:
             raise SystemExit(f"{a.track} has no 'frame' column")
+        missing = {"x", "y"} - set(B.columns)
+        if missing:
+            raise SystemExit(f"{a.track} is missing columns: {sorted(missing)}")
         keep = ["x", "y"] + (["interp"] if "interp" in B.columns else [])
         blob = B.set_index("frame")[keep]
         if "interp" not in blob.columns:
@@ -382,6 +383,27 @@ def main():
         real = np.isfinite(blob.x) & ~blob.interp.astype(bool)
         print(f"blob track: {len(blob)} rows, {int(real.sum())} real detections, "
               f"{int(blob.interp.astype(bool).sum())} gap-filled (excluded)")
+
+    if a.h5 or a.csv:
+        T = read_track(a.h5, a.csv, a.bodypart)
+        bad = int(((T.x == SENTINEL) & (T.y == SENTINEL)).sum())
+        print(f"{len(T)} frames, {bad} with no detection "
+              f"({100 * bad / len(T):.1f}%), likelihood median "
+              f"{T.likelihood.median():.4f} max {T.likelihood.max():.3f}")
+    else:
+        # Without DLC output, use real blob detections as the primary track.
+        # Interpolated rows remain failures rather than pseudo-observations.
+        print("no DLC output given -- blob-only mode, disagreement strata off")
+        T = pd.DataFrame({
+            "frame": blob.index.to_numpy(int),
+            "x": np.where(real, blob.x, SENTINEL),
+            "y": np.where(real, blob.y, SENTINEL),
+            "likelihood": np.nan,
+        })
+        blob = None
+        bad = int((T.x == SENTINEL).sum())
+        print(f"{len(T)} frames, {bad} the blob tracker lost "
+              f"({100 * bad / len(T):.1f}%)")
 
     S, R, (gx, gy) = strata(T, a.n, a, a.seed, blob)
     brief, sust = R[R.length < a.long_run], R[R.length >= a.long_run]

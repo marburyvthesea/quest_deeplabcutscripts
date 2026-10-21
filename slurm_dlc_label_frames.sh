@@ -75,6 +75,17 @@ if [ "$#" -lt 3 ]; then
 fi
 VIDDIR=$1; PROJ=$2; shift 2
 ANIMALS=("$@")
+
+# Catch unset or swapped submit-time variables before they look like missing
+# tracking data several steps later.
+if [ ! -d "$VIDDIR" ] || ! compgen -G "$VIDDIR"/*.avi > /dev/null; then
+  echo "no .avi files in '$VIDDIR' -- check the video-directory argument"
+  exit 1
+fi
+if [ ! -d "$PROJ" ]; then
+  echo "project directory does not exist: '$PROJ'"
+  exit 1
+fi
 if [ -n "${SLURM_ARRAY_TASK_ID:-}" ]; then
   if [ "$SLURM_ARRAY_TASK_ID" -ge "${#ANIMALS[@]}" ]; then
     echo "array index beyond the animal list -- nothing to do"; exit 0
@@ -88,9 +99,7 @@ cd /home/jma819/quest_deeplabcutscripts
 for A in "${ANIMALS[@]}"; do
   H5="$VIDDIR/dlc_out_finetuned/${A}${SUFFIX}.h5"
   VID="$VIDDIR/${A}.avi"
-  for f in "$H5" "$VID"; do
-    [ -f "$f" ] || { echo "missing $f -- skipping $A"; continue 2; }
-  done
+  [ -f "$VID" ] || { echo "missing $VID -- skipping $A"; continue; }
   echo "=== $A"
   TRACK_ARG=()
   if [ -n "${TRACKDIR:-}" ]; then
@@ -101,8 +110,17 @@ for A in "${ANIMALS[@]}"; do
       echo "no blob track at $TCSV -- disagreement strata skipped for $A"
     fi
   fi
+  SRC_ARG=(--h5 "$H5")
+  if [ ! -f "$H5" ]; then
+    if [ ${#TRACK_ARG[@]} -eq 0 ]; then
+      echo "no DLC output at $H5 and no blob track -- skipping $A"
+      continue
+    fi
+    echo "no DLC output at $H5 -- blob-only selection for $A"
+    SRC_ARG=()
+  fi
   "$PY" dlc_label_frames.py \
-    --h5 "$H5" --video "$VID" \
+    "${SRC_ARG[@]}" --video "$VID" \
     --outdir "$PROJ/labeled-data/$A" \
     --manifest "$PROJ/${A}_labelframes.csv" \
     --fig "$PROJ/${A}_labelframes.png" \
