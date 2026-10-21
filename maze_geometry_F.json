@@ -1,0 +1,42 @@
+{
+ "session": "F",
+ "source": "transferred from C by tmaze_geometry_transfer.py, shift (+0.00, +0.00) px",
+ "frame_size_px": [
+  720,
+  480
+ ],
+ "doors": {
+  "DS0": {
+   "x": 373,
+   "y": 184,
+   "w": 80,
+   "h": 20
+  }
+ },
+ "maze_outer": {
+  "x": 127,
+  "y": 75,
+  "w": 561,
+  "h": 318
+ },
+ "exclude_islands": [
+  {
+   "x": 214,
+   "y": 156,
+   "w": 162,
+   "h": 155
+  },
+  {
+   "x": 448,
+   "y": 159,
+   "w": 150,
+   "h": 156
+  }
+ ],
+ "notes": "frame_size_px confirmed 720x480 by manifest_images.py extracting from C.avi on Quest; equals the labeled mp4 these ROIs were drawn on and the h5 row count (251334), so ROI and label coordinates share one frame.",
+ "transfer": {
+  "from": "C",
+  "dx_px": 0.0,
+  "dy_px": 0.0
+ }
+}
