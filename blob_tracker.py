@@ -76,6 +76,19 @@ def surface_mask(bg, geom, sat_thr=245, erode=0, close=5):
     return m
 
 
+def search_region(shape, geom):
+    """Pixels eligible for the surface mask before intensity thresholding."""
+    H, W = shape
+    keep = np.zeros((H, W), dtype=np.uint8)
+    b = geom["maze_outer"]
+    keep[max(0, b["y"]):b["y"] + b["h"],
+         max(0, b["x"]):b["x"] + b["w"]] = 1
+    for b in geom.get("exclude_islands", []):
+        keep[max(0, b["y"]):b["y"] + b["h"],
+             max(0, b["x"]):b["x"] + b["w"]] = 0
+    return keep
+
+
 # ---------------------------------------------------------------- candidates
 
 def candidates(grey, bg, mask, dark_thr, amin, amax, min_depth=40, open_k=3, close_k=7):
@@ -147,11 +160,27 @@ def cmd_mask(a):
     cap, N = open_video(a.video)
     bg = background(cap, N, a.bg_stride)
     m = surface_mask(bg, g, a.sat_thr, a.erode)
+    eligible = search_region(bg.shape, g)
+    eligible_values = bg[eligible > 0]
+    coverage = m.sum() / max(eligible.sum(), 1)
     print(f"frame {bg.shape[1]}x{bg.shape[0]}, {N} frames")
     print(f"surface mask: {int(m.sum())} px "
-          f"({100*m.sum()/(bg.shape[0]*bg.shape[1]):.1f}% of frame)")
-    print(f"background on surface: median {np.median(bg[m>0]):.0f}, "
-          f"{100*(bg[m>0]>=250).mean():.0f}% at >=250")
+          f"({100*m.sum()/(bg.shape[0]*bg.shape[1]):.1f}% of frame, "
+          f"{100*coverage:.1f}% of eligible maze region)")
+    if eligible_values.size:
+        pct = np.percentile(eligible_values, [10, 25, 50, 75, 90, 95, 99])
+        print("eligible-region background percentiles "
+              "(p10,p25,p50,p75,p90,p95,p99): "
+              + ", ".join(f"{x:.0f}" for x in pct))
+    surface_values = bg[m > 0]
+    if surface_values.size:
+        print(f"background on surface: median {np.median(surface_values):.0f}, "
+              f"{100*(surface_values>=250).mean():.0f}% at >=250")
+    else:
+        print("background on surface: empty")
+    if coverage < 0.05:
+        print("WARNING: surface mask covers under 5% of the eligible maze region. "
+              "Lower --sat-thr and inspect the mask PNG before tracking.")
     vis = cv2.cvtColor(bg.astype(np.uint8), cv2.COLOR_GRAY2BGR)
     vis[m > 0] = (0.55 * vis[m > 0] + np.array([0, 90, 0])).astype(np.uint8)
     for b in g.get("exclude_islands", []) + [g["maze_outer"]]:
@@ -251,21 +280,29 @@ def cmd_track(a):
         import matplotlib.pyplot as plt
         fig, ax = plt.subplots(1, 2, figsize=(11, 3.6))
         ok = np.isfinite(T.x)
-        hb = ax[0].hexbin(T.x[ok], T.y[ok], gridsize=60, bins="log", cmap="magma",
-                          extent=(g["maze_outer"]["x"], g["maze_outer"]["x"]+g["maze_outer"]["w"],
-                                  g["maze_outer"]["y"], g["maze_outer"]["y"]+g["maze_outer"]["h"]))
+        b = g["maze_outer"]
+        if ok.any():
+            hb = ax[0].hexbin(
+                T.x[ok], T.y[ok], gridsize=60, bins="log", cmap="magma",
+                extent=(b["x"], b["x"] + b["w"], b["y"], b["y"] + b["h"]),
+            )
+            fig.colorbar(hb, ax=ax[0], label="frames")
+        else:
+            ax[0].set_xlim(b["x"], b["x"] + b["w"])
+            ax[0].set_ylim(b["y"], b["y"] + b["h"])
+            ax[0].text(0.5, 0.5, "No detections", transform=ax[0].transAxes,
+                       ha="center", va="center", color="#b22222", weight="bold")
         for b in g.get("exclude_islands", []):
             ax[0].add_patch(plt.Rectangle((b["x"], b["y"]), b["w"], b["h"], fill=False,
                                           ec="#4dd0e1", lw=1.2))
         ax[0].invert_yaxis(); ax[0].set_aspect("equal")
         ax[0].set_xlabel("x (px)"); ax[0].set_ylabel("y (px)")
         ax[0].set_title("occupancy", loc="left")
-        fig.colorbar(hb, ax=ax[0], label="frames")
         rm = T.speed_px.rolling(int(a.fps), center=True, min_periods=5).median()
         ax[1].plot(T.frame / a.fps / 60.0, rm, lw=0.5, color="#4c72b0")
         ax[1].set_xlabel("time (min)"); ax[1].set_ylabel("speed (px/frame, 1 s median)")
         ax[1].set_title("locomotion over the session", loc="left")
-        fig.tight_layout(); fig.savefig(a.fig, dpi=200)
+        fig.tight_layout(); fig.savefig(a.fig, dpi=200); plt.close(fig)
         print(f"wrote {a.fig}")
 
 
