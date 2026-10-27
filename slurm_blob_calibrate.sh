@@ -36,6 +36,7 @@
 #   GRID_N=60        frames used per grid cell
 #   WINDOW="5100 500"  calibrate on one window instead of the whole video
 #   NOISE_K=4.0      motion threshold, in robust sigmas of frame-to-background
+#   GEOM_FILE=<path> one geometry for every task (the committed ones are identical)
 #   FORCE=1          redo a video whose _calib.csv already exists
 #
 # A geometry file is required and is NOT derived here: if maze_outer does not
@@ -96,11 +97,16 @@ for A in "${NAMES[@]}"; do
   VID="$VIDDIR/${A}.avi"
   [ -f "$VID" ] || { echo "no video at $VID"; exit 1; }
 
-  GEOM="$GEOMDIR/maze_geometry_${A}.json"
+  # GEOM_FILE=<path> points every task at one geometry. The four committed
+  # maze_geometry_*.json are identical in maze_outer/exclude_islands, so for a
+  # video with no geometry of its own any of them gives the same eligible
+  # region -- use the override rather than copying a file per video.
+  GEOM="${GEOM_FILE:-$GEOMDIR/maze_geometry_${A}.json}"
   if [ ! -f "$GEOM" ]; then
-    echo "no geometry at $GEOM -- draw or transfer it before calibrating"
+    echo "no geometry at $GEOM -- draw or transfer it, or set GEOM_FILE=<path>"
     exit 1
   fi
+  echo "  geometry: $GEOM"
 
   OUT="$OUTDIR/${A}_calib.csv"
   if [ -f "$OUT" ] && [ "${FORCE:-0}" != "1" ]; then
