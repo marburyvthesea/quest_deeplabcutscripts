@@ -34,6 +34,7 @@
 #   GEOMDIR=<repo>   where maze_geometry_*.json live
 #   N=240            frames sampled for calibration
 #   GRID_N=60        frames used per grid cell
+#   BG_STRIDE=900    background sampled every Nth frame (ignored if *_mask_bg.npy exists)
 #   WINDOW="5100 500"  calibrate on one window instead of the whole video
 #   NOISE_K=4.0      motion threshold, in robust sigmas of frame-to-background
 #   GEOM_FILE=<path> one geometry for every task (the committed ones are identical)
@@ -117,6 +118,7 @@ for A in "${NAMES[@]}"; do
   ARGS=(--video "$VID" --geom "$GEOM"
         --n "${N:-240}" --grid-n "${GRID_N:-60}"
         --noise-k "${NOISE_K:-4.0}"
+        --bg-stride "${BG_STRIDE:-900}"
         --out-prefix "$OUTDIR/${A}")
 
   # reuse the background the mask step cached, if it is there -- re-seeking a

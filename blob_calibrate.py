@@ -274,8 +274,21 @@ def main():
 
     geom = json.load(open(a.geom))
     cap, N = bt.open_video(a.video)
-    bg = (np.load(a.bg).astype(np.float32) if a.bg and os.path.exists(a.bg)
-          else bt.background(cap, N, a.bg_stride))
+    if a.bg and os.path.exists(a.bg):
+        bg = np.load(a.bg).astype(np.float32)
+    else:
+        # A median over too few samples is not a background: the animal stays
+        # in it, every departure-from-background test then fires on the baked-in
+        # copy rather than the animal, and the symptom is a static hotspot in
+        # the occupancy panel with BOTH polarities reporting the same contrast.
+        # Garbage that looks like data, so refuse to produce it quietly.
+        n_samp = len(range(0, N, a.bg_stride))
+        if n_samp < 20:
+            print(f"WARNING: --bg-stride {a.bg_stride} over {N} frames gives only "
+                  f"{n_samp} background sample(s); the animal will be baked into "
+                  f"the background. Use --bg-stride {max(1, N // 100)} or less, "
+                  f"or pass --bg <cached *_mask_bg.npy>.")
+        bg = bt.background(cap, N, a.bg_stride)
     # the tracker's own definition of the eligible region, so the percentages
     # here and the ones cmd_mask prints are the same number
     elig = bt.search_region(bg.shape, geom)
