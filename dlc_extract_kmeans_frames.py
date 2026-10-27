@@ -66,7 +66,10 @@ def main():
         raise SystemExit(f"config not found: {config}")
 
     wanted = set(args.video_stems)
-    cfg = auxiliaryfunctions.read_config(str(config))
+    # DLC 3's read_config() returns an immutable Pydantic ProjectConfig, while
+    # older releases return a mutable mapping. The plain reader is stable across
+    # both versions and is appropriate here because this config is temporary.
+    cfg = auxiliaryfunctions.read_plainconfig(str(config))
     selected = select_video_sets(cfg, wanted)
 
     for video in selected:
@@ -87,7 +90,7 @@ def main():
     cfg.pop("video_sets_original", None)
     cfg["numframes2pick"] = args.num_frames
     temporary_config = config.parent / f".extract_kmeans_{os.getpid()}.yaml"
-    auxiliaryfunctions.write_config(str(temporary_config), cfg)
+    auxiliaryfunctions.write_plainconfig(str(temporary_config), cfg)
 
     print("Selected videos:")
     for video in selected:
