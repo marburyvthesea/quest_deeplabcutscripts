@@ -57,16 +57,6 @@ import blob_tracker as bt  # noqa: E402
 
 # ------------------------------------------------------------------ helpers
 
-def eligible_mask(bg, geom):
-    """Maze rectangle minus the hand-measured islands -- where the animal can be."""
-    m = np.zeros(bg.shape, np.uint8)
-    b = geom["maze_outer"]
-    m[max(0, b["y"]):b["y"] + b["h"], max(0, b["x"]):b["x"] + b["w"]] = 1
-    for b in geom.get("exclude_islands", []):
-        m[max(0, b["y"]):b["y"] + b["h"], max(0, b["x"]):b["x"] + b["w"]] = 0
-    return m
-
-
 def sample_indices(n_frames, n, window):
     if window:
         s, ln = window
@@ -286,7 +276,9 @@ def main():
     cap, N = bt.open_video(a.video)
     bg = (np.load(a.bg).astype(np.float32) if a.bg and os.path.exists(a.bg)
           else bt.background(cap, N, a.bg_stride))
-    elig = eligible_mask(bg, geom)
+    # the tracker's own definition of the eligible region, so the percentages
+    # here and the ones cmd_mask prints are the same number
+    elig = bt.search_region(bg.shape, geom)
     pre = a.out_prefix or os.path.splitext(a.video)[0]
     print(f"frame {bg.shape[1]}x{bg.shape[0]}, {N} frames; "
           f"eligible region {int(elig.sum())} px")
