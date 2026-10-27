@@ -34,14 +34,16 @@
 #SBATCH -A p30771
 #SBATCH --gres=gpu:a100:1
 #SBATCH -N 1
-#SBATCH -n 8
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
 #SBATCH --mem=48G
 #SBATCH -t 12:00:00
 #SBATCH --job-name="dlc_finetune"
-#SBATCH --output /home/jma819/quest_deeplabcutscripts/logfiles/slurm.%x-%j.out
+#SBATCH --output=slurm.%x-%j.out
 
 # Keep shell commands below the complete SBATCH block so Slurm reads every directive.
 set -euo pipefail
+umask 0002
 
 module purge all
 module load anaconda3
@@ -56,25 +58,31 @@ if [ -n "$CONDA_BASE" ] && [ -f "$CONDA_BASE/etc/profile.d/conda.sh" ]; then
 fi
 conda activate dlc3-torch 2>/dev/null || source activate dlc3-torch 2>/dev/null
 
-PY="$(command -v python)"
-if ! "$PY" -c "import deeplabcut" >/dev/null 2>&1; then
-  PY=/home/jma819/.conda/envs/dlc3-torch/bin/python
+PY="$(command -v python || true)"
+if [ -z "$PY" ] || ! "$PY" -c "import deeplabcut" >/dev/null 2>&1; then
+  PY="$HOME/.conda/envs/dlc3-torch/bin/python"
 fi
-if ! "$PY" -c "import deeplabcut" >/dev/null 2>&1; then
+if [ ! -x "$PY" ] || ! "$PY" -c "import deeplabcut" >/dev/null 2>&1; then
   echo "cannot import deeplabcut with '$PY' -- fix the environment, do not resubmit"
   exit 1
 fi
 echo "interpreter: $PY"
 "$PY" -c "import deeplabcut, torch; print('deeplabcut', deeplabcut.__version__, '| torch', torch.__version__, '| cuda', torch.cuda.is_available())"
 
-cd /home/jma819/quest_deeplabcutscripts
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+if [ "$#" -lt 1 ]; then
+  echo "usage: sbatch slurm_dlc_finetune.sh <config.yaml> [video_to_analyze] [epochs]"
+  exit 1
+fi
 
 CONFIG=$1
 ANALYZE=${2:-}
 EPOCHS=${3:-100}
 
-if [ -z "$CONFIG" ]; then
-  echo "usage: sbatch slurm_dlc_finetune.sh <config.yaml> [video_to_analyze] [epochs]"
+if [ ! -f "$CONFIG" ]; then
+  echo "config not found: $CONFIG"
   exit 1
 fi
 
