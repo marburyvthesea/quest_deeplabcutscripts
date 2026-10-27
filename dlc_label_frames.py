@@ -391,8 +391,9 @@ def main():
               f"({100 * bad / len(T):.1f}%), likelihood median "
               f"{T.likelihood.median():.4f} max {T.likelihood.max():.3f}")
     else:
-        # Without DLC output, use real blob detections as the primary track.
-        # Interpolated rows remain failures rather than pseudo-observations.
+        # Without DLC output, real blob detections become the primary track.
+        # Interpolated rows remain failures, and disagreement strata are disabled
+        # because there is no second position estimate to compare against.
         print("no DLC output given -- blob-only mode, disagreement strata off")
         T = pd.DataFrame({
             "frame": blob.index.to_numpy(int),

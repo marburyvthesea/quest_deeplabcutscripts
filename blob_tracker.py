@@ -369,6 +369,107 @@ def cmd_post(a):
     print(f"wrote {a.out}")
 
 
+def runs_of(mask):
+    """(start, stop) of each maximal True run; stop exclusive."""
+    e = np.flatnonzero(np.diff(np.concatenate(([0], mask.view(np.int8), [0]))))
+    return list(zip(e[::2], e[1::2]))
+
+
+def run_locations(T, runs):
+    """Where each failure run happened, from the valid positions flanking it."""
+    x, y = T.x.to_numpy(float), T.y.to_numpy(float)
+    ok = np.isfinite(x)
+    out = []
+    for s0, s1 in runs:
+        before = np.flatnonzero(ok[:s0])
+        after = np.flatnonzero(ok[s1:])
+        pts = []
+        if before.size:
+            pts.append((x[before[-1]], y[before[-1]]))
+        if after.size:
+            pts.append((x[s1 + after[0]], y[s1 + after[0]]))
+        out.append((np.mean([p[0] for p in pts]), np.mean([p[1] for p in pts]))
+                   if pts else (np.nan, np.nan))
+    return np.asarray(out, float).reshape(-1, 2)
+
+
+def cmd_audit(a):
+    """Split the tracker's own failures by cause. No video decode -- seconds.
+
+    The two causes need opposite fixes, and the track CSV already separates
+    them: a miss with n_cand == 0 means segmentation found nothing (background,
+    threshold, mask or shape gates), while a miss with n_cand > 0 means
+    candidates existed and pick()'s motion gate rejected all of them. The second
+    is an association failure, and widening a detection threshold will not touch
+    it.
+    """
+    T = pd.read_csv(a.track)
+    n = len(T)
+    miss = (T.status.to_numpy() == "miss") if "status" in T.columns \
+        else ~np.isfinite(T.x.to_numpy(float))
+    nc = T.n_cand.to_numpy(float) if "n_cand" in T.columns else np.zeros(n)
+    interp = T.interp.to_numpy(bool) if "interp" in T.columns else np.zeros(n, bool)
+    classes = {"segmentation (n_cand=0)": miss & (nc == 0),
+               "association (n_cand>0)": miss & (nc > 0)}
+
+    print(f"{n} frames, {int(miss.sum())} miss ({100 * miss.mean():.2f}%), "
+          f"{int(interp.sum())} of them gap-filled")
+    summary = []
+    for name, m in classes.items():
+        rr = runs_of(m)
+        if not rr:
+            print(f"  {name}: none")
+            continue
+        L = np.array([s1 - s0 for s0, s1 in rr])
+        loc = run_locations(T, rr)
+        print(f"  {name}: {int(m.sum())} frames ({100 * m.mean():.2f}%) in "
+              f"{len(rr)} runs, median {int(np.median(L))} fr, longest {L.max()}")
+        summary.append((name, L, loc))
+
+    if (miss & (nc > 0)).sum() and "status" in T.columns:
+        share = (miss & (nc > 0)).sum() / max(miss.sum(), 1)
+        print(f"  -> {100 * share:.0f}% of misses had a candidate available; "
+              f"that share is recoverable by better association alone")
+
+    if a.fig and summary:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        fig, axs = plt.subplots(1, 3, figsize=(13, 3.8))
+        for name, L, loc in summary:
+            axs[0].hist(L, bins=np.logspace(0, np.log10(max(L.max(), 2)), 30),
+                        histtype="step", lw=1.6, label=name.split(" (")[0])
+            axs[1].scatter(loc[:, 0], loc[:, 1], s=8, alpha=0.4,
+                           label=name.split(" (")[0])
+            order = np.argsort(L)[::-1]
+            axs[2].plot(np.arange(1, len(L) + 1), np.cumsum(L[order]), lw=1.6,
+                        label=name.split(" (")[0])
+        axs[0].set(xscale="log", xlabel="run length (frames)", ylabel="runs",
+                   title="failure duration")
+        axs[0].legend(fontsize=7, frameon=False)
+        axs[1].set(xlabel="x (px)", ylabel="y (px)", title="where failures happen")
+        axs[1].invert_yaxis()
+        axs[1].legend(fontsize=7, frameon=False)
+        axs[2].set(xlabel="runs, longest first", ylabel="cumulative frames lost",
+                   title="concentration")
+        axs[2].legend(fontsize=7, frameon=False)
+        fig.tight_layout()
+        fig.savefig(a.fig, dpi=150)
+        print(f"wrote {a.fig}")
+
+    if a.out:
+        rows = []
+        for name, m in classes.items():
+            rr = runs_of(m)
+            loc = run_locations(T, rr)
+            for (s0, s1), (gx, gy) in zip(rr, loc):
+                rows.append(dict(cause=name.split(" (")[0], start=int(s0),
+                                 stop=int(s1), length=int(s1 - s0),
+                                 gap_x=gx, gap_y=gy))
+        pd.DataFrame(rows).sort_values(["cause", "start"]).to_csv(a.out, index=False)
+        print(f"wrote {a.out}")
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -421,6 +522,12 @@ def main():
                    help="fraction of a site's episodes that must be walked into")
     q.add_argument("--fps", type=float, default=30.0)
     q.set_defaults(func=cmd_post)
+
+    d = sub.add_parser("audit", help="split tracker failures by cause")
+    d.add_argument("--track", required=True)
+    d.add_argument("--out", default=None, help="per-run table")
+    d.add_argument("--fig", default=None)
+    d.set_defaults(func=cmd_audit)
 
     a = p.parse_args()
     a.func(a)

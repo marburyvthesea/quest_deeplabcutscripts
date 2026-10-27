@@ -79,13 +79,24 @@ ANIMALS=("$@")
 # Catch unset or swapped submit-time variables before they look like missing
 # tracking data several steps later.
 if [ ! -d "$VIDDIR" ] || ! compgen -G "$VIDDIR"/*.avi > /dev/null; then
-  echo "no .avi files in '$VIDDIR' -- check the video-directory argument"
+  echo "no .avi files in '$VIDDIR' -- did an unset variable shift the arguments?"
+  echo "usage: sbatch [--array=0-N] $0 <video_dir> <PROJDIR> <animal ...>"
   exit 1
 fi
 if [ ! -d "$PROJ" ]; then
   echo "project directory does not exist: '$PROJ'"
   exit 1
 fi
+if [ ! -f "$PROJ/config.yaml" ]; then
+  echo "no config.yaml in '$PROJ' -- that is a bare directory, not a DLC"
+  echo "project. Extracting here produces frames the GUI cannot open."
+  exit 1
+fi
+if [ "${#ANIMALS[@]}" -eq 0 ]; then
+  echo "no animals given"
+  exit 1
+fi
+
 if [ -n "${SLURM_ARRAY_TASK_ID:-}" ]; then
   if [ "$SLURM_ARRAY_TASK_ID" -ge "${#ANIMALS[@]}" ]; then
     echo "array index beyond the animal list -- nothing to do"; exit 0
@@ -110,6 +121,9 @@ for A in "${ANIMALS[@]}"; do
       echo "no blob track at $TCSV -- disagreement strata skipped for $A"
     fi
   fi
+
+  # A video that was never analysed has no h5. The blob track can stand in as
+  # the sole position estimate (blob-only mode) -- but only if we have one.
   SRC_ARG=(--h5 "$H5")
   if [ ! -f "$H5" ]; then
     if [ ${#TRACK_ARG[@]} -eq 0 ]; then

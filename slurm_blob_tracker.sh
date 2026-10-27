@@ -97,6 +97,15 @@ if [ "$#" -lt 3 ]; then
 fi
 VIDDIR=$1; OUTDIR=$2; shift 2
 ANIMALS=("$@")
+
+# Argument sanity. An unset shell variable in the submit line shifts every
+# argument left; the job then fails as a "missing file" several steps later,
+# which reads like a data problem and is not one. Check the shape here instead.
+if [ ! -d "$VIDDIR" ] || ! compgen -G "$VIDDIR"/*.avi > /dev/null; then
+  echo "no .avi files in '$VIDDIR' -- did an unset variable shift the arguments?"
+  echo "usage: sbatch [--array=0-N] $0 <video_dir> <out_dir> <animal ...>"
+  exit 1
+fi
 if [ -n "${SLURM_ARRAY_TASK_ID:-}" ]; then
   if [ "$SLURM_ARRAY_TASK_ID" -ge "${#ANIMALS[@]}" ]; then
     echo "array index beyond the animal list -- nothing to do"; exit 0
