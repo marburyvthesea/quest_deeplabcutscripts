@@ -69,7 +69,30 @@ fi
 echo "interpreter: $PY"
 "$PY" -c "import deeplabcut, torch; print('deeplabcut', deeplabcut.__version__, '| torch', torch.__version__, '| cuda', torch.cuda.is_available())"
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# Slurm runs a copied script from /var/spool/slurmd, so BASH_SOURCE does not
+# identify the repository inside a batch job. Prefer an explicit override,
+# then the directory where sbatch was invoked, then this user's standard clone.
+SCRIPT_DIR=""
+for candidate in \
+  "${DLC_SCRIPT_DIR:-}" \
+  "${SLURM_SUBMIT_DIR:-}" \
+  "$HOME/quest_deeplabcutscripts"
+do
+  if [ -n "$candidate" ] && \
+     [ -f "$candidate/dlc_snapshots.py" ] && \
+     [ -f "$candidate/dlc_finetune.py" ]; then
+    SCRIPT_DIR="$(cd -- "$candidate" && pwd)"
+    break
+  fi
+done
+
+if [ -z "$SCRIPT_DIR" ]; then
+  echo "cannot locate dlc_snapshots.py and dlc_finetune.py"
+  echo "submit from the repository or set DLC_SCRIPT_DIR=/path/to/quest_deeplabcutscripts"
+  exit 1
+fi
+
+echo "script dir : $SCRIPT_DIR"
 cd "$SCRIPT_DIR"
 
 if [ "$#" -lt 1 ]; then
@@ -88,7 +111,7 @@ fi
 
 # Snapshots must already be on disk: build_weight_init downloads them itself,
 # but it does that inside this job, and a compute node may have no network.
-if ! "$PY" dlc_snapshots.py; then
+if ! "$PY" "$SCRIPT_DIR/dlc_snapshots.py"; then
   echo "resolve the snapshots on a login node, then resubmit"
   exit 1
 fi
@@ -103,6 +126,6 @@ if [ -n "$ANALYZE" ]; then
   ARGS+=(--analyze "$ANALYZE" --dest "$(dirname "$ANALYZE")/dlc_out_finetuned")
 fi
 
-"$PY" dlc_finetune.py "${ARGS[@]}"
+"$PY" "$SCRIPT_DIR/dlc_finetune.py" "${ARGS[@]}"
 
 echo "done"
