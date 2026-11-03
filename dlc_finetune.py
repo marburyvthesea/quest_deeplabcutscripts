@@ -22,11 +22,9 @@ truth: they are good enough to keep the head alive, not to make posture claims
 without a hand-labelled check.
 
 `with_decoder=True` is mandatory for memory replay, and it requires a conversion
-table in the project config. This script creates it, and it is the identity map
-only because the project's bodyparts were read from your own SuperAnimal
-prediction .h5 -- verified to match `superanimal_topviewmouse.yaml` in both
-membership and order, with mouse_center at index 9. Rename a keypoint and this
-assumption breaks.
+table in the project config. This script creates it, preserving canonical
+SuperAnimal names and translating the aliases used by the hand-labelled T-maze
+project.
 
 Detector defaults to fasterrcnn_mobilenet_v3_large_fpn to match the snapshots
 already in your model-zoo cache from the inference run, so the job does not need
@@ -46,6 +44,20 @@ import os
 import sys
 
 SUPER_ANIMAL = "superanimal_topviewmouse"
+
+SUPER_ANIMAL_BODY_PART_ALIASES = {
+    "ear_left": "left_ear",
+    "ear_right": "right_ear",
+    "body_center": "mouse_center",
+}
+
+
+def build_bodypart_map(bodyparts):
+    """Map project labels to SuperAnimal names, retaining canonical names."""
+    return {
+        bodypart: SUPER_ANIMAL_BODY_PART_ALIASES.get(bodypart, bodypart)
+        for bodypart in bodyparts
+    }
 
 
 def patch_single_animal_memory_replay(dlc_version, multianimal):
@@ -102,10 +114,10 @@ def main():
         from deeplabcut.modelzoo.utils import create_conversion_table
         bp = list(c["bodyparts"])
 
-        # Identity conversion table. with_decoder=True is refused by
-        # WeightInitialization without one, and memory_replay is refused without
-        # with_decoder -- so this is not optional, it is the prerequisite.
-        table = {b: b for b in bp}
+        # with_decoder=True is refused by WeightInitialization without a
+        # conversion table, and memory_replay is refused without with_decoder.
+        table = build_bodypart_map(bp)
+        print(f"project-to-SuperAnimal mapping: {table}", flush=True)
         ct = create_conversion_table(cfg, SUPER_ANIMAL, table)
         print(f"conversion table written for {len(table)} bodyparts; "
               f"array={list(ct.to_array())}", flush=True)
