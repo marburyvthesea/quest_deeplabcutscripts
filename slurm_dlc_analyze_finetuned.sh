@@ -22,7 +22,11 @@
 #SBATCH --mem=32G
 #SBATCH -t 02:00:00
 #SBATCH --job-name="dlc_analyze_ft"
-#SBATCH --output /home/jma819/quest_deeplabcutscripts/logfiles/slurm.%x-%A_%a.out
+# %j is unique for both ordinary jobs and individual array tasks. Using %a
+# outside an array produces Slurm's NO_VAL sentinel (4294967294).
+#SBATCH --output /home/jma819/quest_deeplabcutscripts/logfiles/slurm.%x-%j.out
+
+set -euo pipefail
 
 module purge all
 module load anaconda3
@@ -36,8 +40,8 @@ if [ -n "$CONDA_BASE" ] && [ -f "$CONDA_BASE/etc/profile.d/conda.sh" ]; then
 fi
 conda activate dlc3-torch 2>/dev/null || source activate dlc3-torch 2>/dev/null
 
-PY="$(command -v python)"
-if ! "$PY" -c "import deeplabcut" >/dev/null 2>&1; then
+PY="$(command -v python || true)"
+if [ -z "$PY" ] || ! "$PY" -c "import deeplabcut" >/dev/null 2>&1; then
   PY=/home/jma819/.conda/envs/dlc3-torch/bin/python
 fi
 if ! "$PY" -c "import deeplabcut" >/dev/null 2>&1; then
@@ -63,20 +67,21 @@ fi
 
 cd /home/jma819/quest_deeplabcutscripts
 
+if [ "$#" -lt 2 ]; then
+  echo "usage: sbatch [--array=0-N] slurm_dlc_analyze_finetuned.sh <config.yaml> <video> [video ...]"
+  exit 2
+fi
 CONFIG=$1
 shift
-if [ -z "$CONFIG" ] || [ "$#" -eq 0 ]; then
-  echo "usage: sbatch [--array=0-N] slurm_dlc_analyze_finetuned.sh <config.yaml> <video> [video ...]"
-  exit 1
-fi
 
 VIDEOS=("$@")
-if [ -n "$SLURM_ARRAY_TASK_ID" ]; then
-  if [ "$SLURM_ARRAY_TASK_ID" -ge "${#VIDEOS[@]}" ]; then
-    echo "array index $SLURM_ARRAY_TASK_ID >= ${#VIDEOS[@]} videos -- nothing to do"
+ARRAY_TASK_ID=${SLURM_ARRAY_TASK_ID:-}
+if [ -n "$ARRAY_TASK_ID" ]; then
+  if [ "$ARRAY_TASK_ID" -ge "${#VIDEOS[@]}" ]; then
+    echo "array index $ARRAY_TASK_ID >= ${#VIDEOS[@]} videos -- nothing to do"
     exit 0
   fi
-  VIDEOS=("${VIDEOS[$SLURM_ARRAY_TASK_ID]}")
+  VIDEOS=("${VIDEOS[$ARRAY_TASK_ID]}")
 fi
 
 echo "config : $CONFIG"
@@ -85,4 +90,4 @@ nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 
 "$PY" dlc_analyze_finetuned.py --config "$CONFIG" --videos "${VIDEOS[@]}"
 
-echo "done"
+echo "analysis completed successfully"

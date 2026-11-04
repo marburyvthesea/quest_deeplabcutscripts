@@ -64,6 +64,125 @@ non-centre keypoints as unusable, not merely approximate.
 import argparse, glob, inspect, os, sys
 
 
+def install_single_animal_dataframe_fix():
+    """Pad missing top-down detections before DLC 3.0.1 stacks frames."""
+    import numpy as np
+    from deeplabcut.pose_estimation_pytorch.apis import videos as video_api
+
+    original = video_api.create_df_from_prediction
+
+    def create_df_with_fixed_shape(*args, **kwargs):
+        if args:
+            raise TypeError("create_df_from_prediction must be called with keywords")
+
+        predictions = kwargs["predictions"]
+        model_cfg = kwargs["model_cfg"]
+        multi_animal = kwargs["multi_animal"]
+        if multi_animal:
+            return original(**kwargs)
+
+        metadata = model_cfg["metadata"]
+        num_bodyparts = len(metadata["bodyparts"])
+        num_individuals = max(1, len(metadata.get("individuals", [])))
+        normalized = []
+        missing = 0
+        trimmed = 0
+
+        for prediction in predictions:
+            bodyparts = np.asarray(prediction["bodyparts"])
+            if bodyparts.size == 0:
+                bodyparts = np.empty((0, num_bodyparts, 3))
+            if bodyparts.ndim != 3:
+                raise ValueError(
+                    f"unexpected bodypart prediction shape {bodyparts.shape}"
+                )
+
+            fixed = np.full((num_individuals, num_bodyparts, 3), np.nan)
+            keep_individuals = min(num_individuals, bodyparts.shape[0])
+            keep_bodyparts = min(num_bodyparts, bodyparts.shape[1])
+            keep_coords = min(3, bodyparts.shape[2])
+            if keep_individuals:
+                fixed[:keep_individuals, :keep_bodyparts, :keep_coords] = (
+                    bodyparts[:keep_individuals, :keep_bodyparts, :keep_coords]
+                )
+            else:
+                missing += 1
+            if bodyparts.shape[0] > num_individuals:
+                trimmed += 1
+
+            updated = dict(prediction)
+            updated["bodyparts"] = fixed
+            normalized.append(updated)
+
+        if missing or trimmed:
+            print(
+                "normalized variable-size DLC predictions: "
+                f"{missing} frames without detections, "
+                f"{trimmed} frames trimmed to {num_individuals} individual(s)",
+                flush=True,
+            )
+        kwargs["predictions"] = normalized
+        return original(**kwargs)
+
+    video_api.create_df_from_prediction = create_df_with_fixed_shape
+    return video_api
+
+
+def recover_dataframe_from_full_pickle(full_path, meta_path, video_api):
+    """Create single-animal H5/CSV outputs from DLC's saved raw predictions."""
+    import pickle
+    import numpy as np
+
+    with open(full_path, "rb") as stream:
+        raw = pickle.load(stream)
+    with open(meta_path, "rb") as stream:
+        metadata = pickle.load(stream)["data"]
+
+    bodyparts = list(metadata["bodyparts"])
+    unique_bodyparts = list(metadata.get("unique_bodyparts", []))
+    num_frames = raw["metadata"]["nframes"]
+    key_width = raw["metadata"]["key_str_width"]
+    predictions = []
+
+    for frame_index in range(num_frames):
+        frame = raw[f"frame{frame_index:0{key_width}d}"]
+        coordinates = frame["coordinates"][0]
+        confidence = frame["confidence"]
+        xy = np.stack(coordinates[:len(bodyparts)], axis=0)
+        scores = np.stack(confidence[:len(bodyparts)], axis=0)
+        pose = np.concatenate((xy, scores), axis=-1).transpose((1, 0, 2))
+        prediction = {"bodyparts": pose}
+
+        if unique_bodyparts:
+            first = len(bodyparts)
+            last = first + len(unique_bodyparts)
+            unique_xy = np.stack(coordinates[first:last], axis=0)
+            unique_scores = np.stack(confidence[first:last], axis=0)
+            prediction["unique_bodyparts"] = np.concatenate(
+                (unique_xy, unique_scores), axis=-1
+            ).transpose((1, 0, 2))
+        predictions.append(prediction)
+
+    model_cfg = {
+        "metadata": {
+            "bodyparts": bodyparts,
+            "unique_bodyparts": unique_bodyparts,
+            "individuals": metadata.get("individuals") or ["individual1"],
+        }
+    }
+    prefix = os.path.basename(full_path).removesuffix("_full.pickle")
+    video_api.create_df_from_prediction(
+        predictions=predictions,
+        dlc_scorer=metadata["Scorer"],
+        multi_animal=False,
+        model_cfg=model_cfg,
+        output_path=os.path.dirname(full_path),
+        output_prefix=prefix,
+        save_as_csv=True,
+    )
+    return os.path.join(os.path.dirname(full_path), prefix + ".h5")
+
+
 def find_labeled_videos(video, destfolder):
     """Return nonempty labeled videos matching one source video."""
     stem = os.path.splitext(os.path.basename(video))[0]
@@ -112,6 +231,7 @@ def main():
 
     import deeplabcut
     print(f"deeplabcut {deeplabcut.__version__}", flush=True)
+    video_api = install_single_animal_dataframe_fix()
 
     try:
         from deeplabcut.core.config import read_config_as_dict as _read
@@ -136,6 +256,28 @@ def main():
                 cfg, [v], **{k: w for k, w in kw.items() if k in sig}
             )
             print(f"scorer    : {scorer}", flush=True)
+
+            prefix = os.path.splitext(os.path.basename(v))[0] + scorer
+            h5_path = os.path.join(d, prefix + ".h5")
+            if not os.path.isfile(h5_path):
+                full_path = os.path.join(d, prefix + "_full.pickle")
+                meta_path = os.path.join(d, prefix + "_meta.pickle")
+                if not (os.path.isfile(full_path) and os.path.isfile(meta_path)):
+                    raise RuntimeError(
+                        "DLC created neither the expected H5 nor recoverable "
+                        f"pickle outputs for {v}"
+                    )
+                print(
+                    "H5 missing but raw predictions exist; recovering without "
+                    "rerunning inference",
+                    flush=True,
+                )
+                h5_path = recover_dataframe_from_full_pickle(
+                    full_path, meta_path, video_api
+                )
+            if not os.path.isfile(h5_path) or os.path.getsize(h5_path) == 0:
+                raise RuntimeError(f"analysis output is missing or empty: {h5_path}")
+            print(f"analysis output: {h5_path}", flush=True)
         else:
             print("analysis  : skipped (using existing outputs)", flush=True)
 
