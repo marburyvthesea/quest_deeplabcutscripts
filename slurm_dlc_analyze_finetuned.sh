@@ -7,8 +7,12 @@
 #
 # One video per array task, so F and K run concurrently on separate GPUs:
 #
+# The config must be the project the network was trained in. As of the Oct 20
+# fine-tune that is TmazeParts-jjm-2026-10-20, NOT the September TmazeBlob
+# project -- passing the wrong one silently analyses with the old network.
+#
 #   sbatch --array=0-1 slurm_dlc_analyze_finetuned.sh \
-#     /projects/b1118/dlc_analysis/TmazeBlob-blobtracker-2026-09-17/config.yaml \
+#     /projects/b1118/dlc_analysis/TmazeParts-jjm-2026-10-20/config.yaml \
 #     /scratch/jma819/T_maze_recordings/behaviorVIdeos/F.avi \
 #     /scratch/jma819/T_maze_recordings/behaviorVIdeos/K.avi
 #
