@@ -35,6 +35,9 @@ import numpy as np, pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
+
+OCC_BIN = 8   # px; occupancy bin, ~1/3 of the animal's width in these frames
 
 
 def frame_of(name) -> int | None:
@@ -159,10 +162,13 @@ def stats(dx, dy, label):
 def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--labels", required=True,
-                   help="CollectedData_*.h5, or a project/labeled-data dir to search")
+    p.add_argument("--labels", default=None,
+                   help="CollectedData_*.h5, or a project/labeled-data dir to "
+                        "search. Omit for a video with no labels: you then get "
+                        "coverage and occupancy only, no accuracy.")
     p.add_argument("--dlc", required=True, help="DLC .h5 for the whole video")
-    p.add_argument("--blob", required=True, help="blob_tracker cmd_track CSV")
+    p.add_argument("--blob", default=None,
+                   help="blob_tracker cmd_track CSV. Omit to assess DLC alone.")
     p.add_argument("--animal", default=None, help="restrict labels to this folder")
     p.add_argument("--bodypart", default="body_center")
     p.add_argument("--pcutoff", type=float, default=0.6)
@@ -173,16 +179,28 @@ def main():
     p.add_argument("--out", required=True, help="output prefix")
     a = p.parse_args()
 
-    lab = load_labels(a.labels, a.animal, a.bodypart)
     dlc = load_dlc(a.dlc, a.bodypart, a.pcutoff)
-    blob = load_blob(a.blob, not a.count_interpolated)
-    print(f"{len(lab)} labelled frames, {len(dlc)} DLC frames, {len(blob)} blob frames")
+    # an absent input becomes an all-NaN column rather than a branch: every
+    # statistic below already skips NaN, so the DLC-only case needs no
+    # separate code path and cannot drift from the three-way one
+    lab = (load_labels(a.labels, a.animal, a.bodypart) if a.labels else
+           pd.DataFrame({"src": [], "xh": [], "yh": []},
+                        index=pd.Index([], name="frame", dtype=int)))
+    blob = (load_blob(a.blob, not a.count_interpolated) if a.blob else
+            pd.DataFrame({"xb": np.nan, "yb": np.nan}, index=dlc.index))
+    print(f"{len(lab)} labelled frames, {len(dlc)} DLC frames, "
+          f"{int(np.isfinite(blob.xb).sum())} blob detections")
+    if not a.labels:
+        print("no --labels: reporting coverage and occupancy only. A plausible\n"
+              "  occupancy map is necessary but not sufficient -- it rules out a\n"
+              "  stuck tracker, not a systematically displaced one.")
 
     J = lab.join(dlc, how="left").join(blob, how="left")
     if a.split_doc:
         J["split"] = load_split(a.split_doc, lab)
     else:
         J["split"] = "unknown"
+    if a.labels and not a.split_doc:
         print("WARNING: no --split-doc, so most of these labelled frames are ones\n"
               "         the network trained on. Its error here is optimistic and\n"
               "         not comparable to the blob tracker, which saw no labels.")
@@ -220,6 +238,22 @@ def main():
         cov["agreement_median_debiased_px"] = float(np.median(resid))
         cov["agreement_p90_debiased_px"] = float(np.percentile(resid, 90))
 
+    # A tracker locked onto fixed rig hardware looks confident and never moves.
+    # These two numbers say so with no ground truth to compare against, which
+    # is the only check available on a video that has no labels.
+    for tag, (cx, cy) in (("dlc", ("xd", "yd")), ("blob", ("xb", "yb"))):
+        xo, yo = both[cx].to_numpy(), both[cy].to_numpy()
+        mo = np.isfinite(xo) & np.isfinite(yo)
+        if mo.sum() < 10:
+            continue
+        xe = np.arange(xo[mo].min(), xo[mo].max() + OCC_BIN, OCC_BIN)
+        ye = np.arange(yo[mo].min(), yo[mo].max() + OCC_BIN, OCC_BIN)
+        if len(xe) < 2 or len(ye) < 2:
+            continue
+        hh = np.histogram2d(xo[mo], yo[mo], bins=[xe, ye])[0]
+        cov[f"{tag}_top_bin_frac"] = float(hh.max() / hh.sum())
+        cov[f"{tag}_bins_occupied"] = int((hh > 0).sum())
+
     summary = {"bodypart": a.bodypart, "pcutoff": a.pcutoff,
                "per_split": rows, "coverage": cov}
     J.to_csv(f"{a.out}_errors.csv")
@@ -236,28 +270,45 @@ def main():
             print(f"  {r['split']:>7} {r['method']:>4}: no frames with a position")
     print(f"coverage over {cov['n_frames']} frames: DLC {100*cov['dlc_frac']:.1f}%, "
           f"blob {100*cov['blob_frac']:.1f}%, either {100*cov['either_frac']:.1f}%")
+    if "dlc_top_bin_frac" in cov:
+        print(f"DLC occupancy: {100*cov['dlc_top_bin_frac']:.1f}% of frames in the "
+              f"densest {OCC_BIN}-px bin, {cov['dlc_bins_occupied']} bins visited "
+              f"(a tracker stuck on hardware sits near 100% in one bin)")
 
-    # ---- figure
-    fig, ax = plt.subplots(2, 2, figsize=(11, 8.5), constrained_layout=True)
-    pri = "test" if (J.split == "test").any() else J.split.iloc[0]
-    m = J.split == pri
-    for meth, col, c in (("DLC", "dlc_err", "#1f77b4"), ("blob", "blob_err", "#d62728")):
-        v = np.sort(J[col][m].dropna().to_numpy())
-        if len(v):
-            ax[0, 0].plot(v, np.linspace(0, 100, len(v)), color=c, lw=1.8,
-                          label=f"{meth} (n={len(v)})")
-    ax[0, 0].set(xlabel="error vs human label (px)", ylabel="% of frames below",
-                 title=f"Accuracy on {pri} frames")
-    ax[0, 0].legend(frameon=False)
+    # ---- figure: which panels exist depends on which inputs were given
+    has_lab = bool(np.isfinite(J.xh).any()) if len(J) else False
+    has_blob = bool(np.isfinite(both.xb).any())
+    n_panel = 2 * has_lab + 2 + (1 if ok.any() else 0)
+    nrow = int(np.ceil(n_panel / 2))
+    fig, axs = plt.subplots(nrow, 2, figsize=(11, 4.3 * nrow),
+                            constrained_layout=True, squeeze=False)
+    axs = axs.ravel()
+    k = 0
 
-    for meth, (cx, cy), c in (("DLC", ("xd", "yd"), "#1f77b4"),
-                              ("blob", ("xb", "yb"), "#d62728")):
-        ax[0, 1].scatter(J[cx][m] - J.xh[m], J[cy][m] - J.yh[m], s=12, alpha=.5,
-                         color=c, label=meth)
-    ax[0, 1].axhline(0, color="k", lw=.6); ax[0, 1].axvline(0, color="k", lw=.6)
-    ax[0, 1].set(xlabel="x offset (px)", ylabel="y offset (px)",
-                 title="Offset from the human label\n(a tight cloud off-centre is bias, not error)")
-    ax[0, 1].legend(frameon=False)
+    if has_lab:
+        pri = "test" if (J.split == "test").any() else J.split.iloc[0]
+        m = J.split == pri
+        ax = axs[k]; k += 1
+        for meth, col, c in (("DLC", "dlc_err", "#1f77b4"),
+                             ("blob", "blob_err", "#d62728")):
+            v = np.sort(J[col][m].dropna().to_numpy())
+            if len(v):
+                ax.plot(v, np.linspace(0, 100, len(v)), color=c, lw=1.8,
+                        label=f"{meth} (n={len(v)})")
+        ax.set(xlabel="error vs human label (px)", ylabel="% of frames below",
+               title=f"Accuracy on {pri} frames")
+        ax.legend(frameon=False)
+
+        ax = axs[k]; k += 1
+        for meth, (cx, cy), c in (("DLC", ("xd", "yd"), "#1f77b4"),
+                                  ("blob", ("xb", "yb"), "#d62728")):
+            ax.scatter(J[cx][m] - J.xh[m], J[cy][m] - J.yh[m], s=12, alpha=.5,
+                       color=c, label=meth)
+        ax.axhline(0, color="k", lw=.6); ax.axvline(0, color="k", lw=.6)
+        ax.set(xlabel="x offset (px)", ylabel="y offset (px)",
+               title="Offset from the human label\n"
+                     "(a tight cloud off-centre is bias, not error)")
+        ax.legend(frameon=False)
 
     # a short window makes coverage a sawtooth that reads as noise; average over
     # ~1% of the session so sustained dropouts are what shows
@@ -265,24 +316,48 @@ def main():
     rollc = pd.DataFrame({"DLC": np.isfinite(both.xd).astype(float),
                           "blob": np.isfinite(both.xb).astype(float)}
                          ).rolling(w, min_periods=1).mean()
-    ax[1, 0].plot(both.index / 1000, 100 * rollc.DLC, color="#1f77b4", lw=1, label="DLC")
-    ax[1, 0].plot(both.index / 1000, 100 * rollc.blob, color="#d62728", lw=1, label="blob")
-    ax[1, 0].set(xlabel="frame (thousands)", ylabel="% of frames with a position",
-                 ylim=(-3, 103), title="Coverage across the session")
-    ax[1, 0].legend(frameon=False, ncol=2)
+    ax = axs[k]; k += 1
+    ax.plot(both.index / 1000, 100 * rollc.DLC, color="#1f77b4", lw=1, label="DLC")
+    if has_blob:
+        ax.plot(both.index / 1000, 100 * rollc.blob, color="#d62728", lw=1, label="blob")
+    ax.set(xlabel="frame (thousands)", ylabel="% of frames with a position",
+           ylim=(-3, 103), title=f"Coverage across the session ({w}-frame mean)")
+    ax.legend(frameon=False, ncol=2)
+
+    # occupancy: the check that exposed the SuperAnimal failure, where a
+    # confident-looking tracker had locked onto fixed rig hardware all session
+    ax = axs[k]; k += 1
+    xo, yo = both.xd.to_numpy(), both.yd.to_numpy()
+    mo = np.isfinite(xo) & np.isfinite(yo)
+    if "dlc_top_bin_frac" in cov:
+        xe = np.arange(xo[mo].min(), xo[mo].max() + OCC_BIN, OCC_BIN)
+        ye = np.arange(yo[mo].min(), yo[mo].max() + OCC_BIN, OCC_BIN)
+        h = ax.hist2d(xo[mo], yo[mo], bins=[xe, ye], cmap="magma",
+                      norm=LogNorm())[3]
+        fig.colorbar(h, ax=ax, label="frames per bin")
+        ax.invert_yaxis()
+        ax.set(xlabel="x (px)", ylabel="y (px)", aspect="equal",
+               title="Where DLC put the animal\n"
+                     f"{100 * cov['dlc_top_bin_frac']:.1f}% of frames in one "
+                     f"{OCC_BIN}-px bin, {cov['dlc_bins_occupied']} bins visited")
 
     if ok.any():
+        ax = axs[k]; k += 1
         v = np.sort(agree[ok].to_numpy())
-        ax[1, 1].plot(v, np.linspace(0, 100, len(v)), color="#555", lw=1.8,
-                      label=f"raw, median {np.median(v):.1f} px")
+        ax.plot(v, np.linspace(0, 100, len(v)), color="#555", lw=1.8,
+                label=f"raw, median {np.median(v):.1f} px")
         # the two methods measure different points on the animal, so a constant
         # offset is calibration; the residual scatter is the real disagreement
         vc = np.sort(resid.to_numpy())
-        ax[1, 1].plot(vc, np.linspace(0, 100, len(vc)), color="#2ca02c", lw=1.8,
-                      ls="--", label=f"offset removed, median {np.median(vc):.1f} px")
-        ax[1, 1].legend(frameon=False, loc="lower right")
-    ax[1, 1].set(xlabel="DLC-to-blob distance (px)", ylabel="% of frames below",
-                 title=f"Where the two methods agree\n({100*cov['both_frac']:.0f}% of frames have both)")
+        ax.plot(vc, np.linspace(0, 100, len(vc)), color="#2ca02c", lw=1.8,
+                ls="--", label=f"offset removed, median {np.median(vc):.1f} px")
+        ax.legend(frameon=False, loc="lower right")
+        ax.set(xlabel="DLC-to-blob distance (px)", ylabel="% of frames below",
+               title="Where the two methods agree\n"
+                     f"({100 * cov['both_frac']:.0f}% of frames have both)")
+
+    for ax in axs[k:]:
+        ax.remove()
     fig.savefig(f"{a.out}_benchmark.png", dpi=150)
     print(f"wrote {a.out}_errors.csv, {a.out}_summary.json, {a.out}_benchmark.png")
 
