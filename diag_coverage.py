@@ -43,7 +43,9 @@ def main():
     rows = []
     for f in files:
         base = os.path.basename(f)
-        video = re.split(r"DLC_", base)[0]
+        # "C_DLC_HrnetW32_....h5" -> "C"; the trailing separator has to go or
+        # the regime match below silently fails on every single-letter video
+        video = re.split(r"DLC_", base)[0].rstrip("_")
         try:
             df = pd.read_hdf(f)
         except Exception as e:
