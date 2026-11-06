@@ -29,9 +29,11 @@ P = "/projects/b1118/dlc_analysis/TmazeParts-jjm-2026-10-20"
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--project", default=P)
-    ap.add_argument("--margin", type=float, default=20.0,
+    ap.add_argument("--margin", type=float, default=25.0,
                     help="px added on each side, as DLC does when building "
-                         "detector boxes from keypoints")
+                         "detector boxes from keypoints. Default matches "
+                         "bbox_margin=25 in the Oct-20 pytorch_config.yaml; "
+                         "pass --margin 0 for the raw keypoint extent")
     ap.add_argument("--fig", default="bbox_audit.png")
     a = ap.parse_args()
 
