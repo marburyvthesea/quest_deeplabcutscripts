@@ -55,7 +55,19 @@ def load_labels(path, animal, bodypart):
             raise SystemExit(f"no CollectedData*.h5 under {path}")
         if animal:
             keep = [h for h in hits if f"{os.sep}{animal}{os.sep}" in h]
-            hits = keep or hits
+            if not keep:
+                # Falling back to every animal's labels here silently pools
+                # unrelated recordings and compares them to one video's
+                # predictions -- random pairing that looks like a real but
+                # enormous error (it put H at ~280 px from every part, with
+                # the spread of a uniform draw over the arena). An animal
+                # with no labels has to be an error, not a guess.
+                have = sorted({os.path.basename(os.path.dirname(h))
+                               for h in hits})
+                raise SystemExit(
+                    f"no labeled-data/{animal}/ under {path}; "
+                    f"labelled animals are {have}")
+            hits = keep
         df = pd.concat([pd.read_hdf(h) for h in hits])
     else:
         df = pd.read_hdf(path)

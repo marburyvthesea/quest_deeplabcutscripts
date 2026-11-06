@@ -46,14 +46,40 @@ def name_of(rec):
 
 
 def animal_of(n):
-    # labeled-data/<animal>/imgNNNNNNN.png, on either path separator
-    m = re.search(r"labeled-data[\\/]+([^\\/]+)[\\/]", str(n))
-    return m.group(1) if m else "?"
+    """Second-to-last path component, whatever the layout.
+
+    The first pass keyed on a literal 'labeled-data' component and every
+    image fell through to '?', which hid the per-animal split entirely.
+    DLC records image paths in several shapes across versions (relative,
+    absolute, os.path.join of an index tuple), so take the parent directory
+    rather than matching a fixed prefix.
+    """
+    parts = [p for p in re.split(r"[\\/]+", str(n)) if p]
+    return parts[-2] if len(parts) >= 2 else "?"
 
 
 names = [name_of(r) for r in data]
 print(f"{len(names)} images in the shuffle; "
       f"{len(train_idx)} train / {len(test_idx)} test")
+
+# The first run reported 276 images against 379+20=399 indices, which cannot
+# both be true of one list -- so dump the structure rather than guess at it.
+print("\n=== pickle structure")
+print("  top-level:", type(obj).__name__,
+      f"len={len(obj)}" if hasattr(obj, "__len__") else "")
+for i, el in enumerate(obj if isinstance(obj, (list, tuple)) else []):
+    print(f"   [{i}] {type(el).__name__:12s} "
+          f"len={len(el) if hasattr(el, '__len__') else '-'}")
+print("  sample image records:")
+for r in data[:3]:
+    print("   ", repr(r)[:200])
+print("  sample parsed names:", [name_of(r) for r in data[:3]])
+print(f"  index range: train {min(train_idx, default='-')}..",
+      f"{max(train_idx, default='-')}, test {min(test_idx, default='-')}..",
+      f"{max(test_idx, default='-')}")
+n_oor = sum(1 for i in list(train_idx) + list(test_idx)
+            if not (0 <= i < len(names)))
+print(f"  indices outside 0..{len(names)-1}: {n_oor}")
 
 rows = []
 for which, ids in (("train", train_idx), ("test", test_idx)):
