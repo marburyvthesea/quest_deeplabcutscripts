@@ -52,17 +52,42 @@ def main():
     ap.add_argument("--sheet", default="unlabelled_contact_sheet.png")
     ap.add_argument("--cols", type=int, default=10)
     ap.add_argument("--thumb", type=int, default=180)
+    ap.add_argument("--labeled-data", action="store_true",
+                    help="read the per-video labeled-data/*/CollectedData_*.h5 "
+                         "instead of the merged training-datasets copy. Use this "
+                         "after a relabelling round: the merged copy is only "
+                         "rewritten by create_training_dataset, so it still shows "
+                         "the OLD blank rows until you rebuild the dataset")
+    ap.add_argument("--partial", action="store_true",
+                    help="also list rows that are partially labelled (at least "
+                         "one part present, at least one missing)")
     a = ap.parse_args()
 
-    hits = sorted(glob.glob(
-        f"{a.project}/training-datasets/*/*/CollectedData_*.h5"))
-    if not hits:
-        sys.exit(f"no merged CollectedData_*.h5 under {a.project}")
-    merged = hits[0]
-    D = pd.read_hdf(merged)
-    empty = D.isna().all(axis=1).to_numpy()
-    print(f"{os.path.basename(merged)}: {len(D)} rows, "
-          f"{int(empty.sum())} with no labelled part")
+    if a.labeled_data:
+        hits = sorted(glob.glob(
+            f"{a.project}/labeled-data/*/CollectedData_*.h5"))
+        if not hits:
+            sys.exit(f"no labeled-data/*/CollectedData_*.h5 under {a.project}")
+        D = pd.concat([pd.read_hdf(h) for h in hits])
+        merged = f"{len(hits)} per-video CollectedData files"
+    else:
+        hits = sorted(glob.glob(
+            f"{a.project}/training-datasets/*/*/CollectedData_*.h5"))
+        if not hits:
+            sys.exit(f"no merged CollectedData_*.h5 under {a.project}\n"
+                     "(if you have just relabelled, pass --labeled-data)")
+        merged = os.path.basename(hits[0])
+        D = pd.read_hdf(hits[0])
+
+    na = D.isna()
+    empty = na.all(axis=1).to_numpy()
+    part = (na.any(axis=1) & ~na.all(axis=1)).to_numpy()
+    print(f"{merged}: {len(D)} rows, {int(empty.sum())} with no labelled part, "
+          f"{int(part.sum())} partially labelled")
+    if a.partial:
+        empty = empty | part
+        print(f"  --partial: selecting {int(empty.sum())} rows "
+              "(blank + partially labelled)")
     if not empty.any():
         sys.exit("nothing to do")
 
