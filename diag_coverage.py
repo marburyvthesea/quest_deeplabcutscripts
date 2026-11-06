@@ -85,6 +85,44 @@ def main():
               "Run analyze_videos on one *_test recording to compare.")
     print("\nwrote coverage_by_video.csv")
 
+    # Choosing the cutoff is now the live decision: raw coverage is 87-97%
+    # but p>=0.6 keeps only a fifth, so the threshold -- not the detector --
+    # is what makes the tracks look sparse. Sweep it.
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    grid = np.linspace(0, 0.95, 40)
+    fig, ax = plt.subplots(figsize=(7, 4.4))
+    for f in files:
+        base = os.path.basename(f)
+        video = re.split(r"DLC_", base)[0].rstrip("_")
+        df = pd.read_hdf(f)
+        sub = df[df.columns.get_level_values(0)[0]]
+        if sub.columns.nlevels == 3:
+            sub = sub[sub.columns.get_level_values(0)[0]]
+        parts = list(dict.fromkeys(sub.columns.get_level_values(0)))
+        bp = a.bodypart if a.bodypart in parts else parts[0]
+        x = sub[(bp, "x")].to_numpy(float)
+        p = sub[(bp, "likelihood")].to_numpy(float)
+        det = np.isfinite(x) & (x != -1)
+        frac = [100 * (det & (p >= t)).mean() for t in grid]
+        satd = bool(re.fullmatch(r"[CFHK]", video))
+        ax.plot(grid, frac, lw=1.8, color="#c0504d" if satd else "#4878a8",
+                label=video)
+    ax.axvline(a.pcutoff, color="k", ls=":", lw=1)
+    ax.annotate(f"current cutoff {a.pcutoff:g}", (a.pcutoff, 98),
+                xytext=(4, 0), textcoords="offset points", fontsize=8, va="top")
+    ax.set_xlabel(f"likelihood cutoff on {a.bodypart}")
+    ax.set_ylabel("frames retained (%)")
+    ax.set_ylim(0, 100)
+    ax.set_title("Red = saturated recordings (C/F/H/K), blue = *_test")
+    ax.legend(fontsize=7, ncol=3, frameon=False)
+    for s in ("top", "right"):
+        ax.spines[s].set_visible(False)
+    fig.tight_layout()
+    fig.savefig("coverage_vs_cutoff.png", dpi=160)
+    print("wrote coverage_vs_cutoff.png")
+
 
 if __name__ == "__main__":
     main()
