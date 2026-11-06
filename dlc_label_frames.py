@@ -141,8 +141,19 @@ def strata(T, n, a, seed, blob=None):
     """
     rng = np.random.default_rng(seed)
     x, y, f = T.x.to_numpy(float), T.y.to_numpy(float), T.frame.to_numpy(int)
-    bad = (x == SENTINEL) & (y == SENTINEL)
+    # Two encodings of "the detector found nothing" are in circulation. The
+    # September runs wrote the -1 sentinel; dlc_analyze_finetuned.py now pads
+    # missing detections with NaN instead (see create_df_from_prediction).
+    # NaN == -1.0 is False, so testing only the sentinel on a current file
+    # makes `bad` all-False: the dropout and dlc_miss_blob_hit strata silently
+    # select nothing and the whole budget falls through to coverage -- i.e. it
+    # would label the frames the detector already handles. Accept both.
+    bad = ~np.isfinite(x) | ~np.isfinite(y) | ((x == SENTINEL) & (y == SENTINEL))
     ok = ~bad
+    if bad.all():
+        raise SystemExit(f"--bodypart {a.bodypart!r}: no valid detections at all")
+    print(f"detector fired on {ok.sum()}/{len(ok)} frames ({100*ok.mean():.1f}%); "
+          f"{bad.sum()} with no detection")
 
     picks = {}
 
