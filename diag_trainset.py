@@ -19,6 +19,7 @@ import re
 import sys
 from collections import Counter
 
+import numpy as np
 import pandas as pd
 
 P = "/projects/b1118/dlc_analysis/TmazeParts-jjm-2026-10-20"
@@ -38,11 +39,16 @@ data, train_idx, test_idx = obj[0], list(obj[1]), list(obj[2])
 
 
 def name_of(rec):
-    if isinstance(rec, dict):
-        return rec.get("image") or rec.get("image_path") or ""
-    if isinstance(rec, (list, tuple)) and rec:
-        return str(rec[0])
-    return str(rec)
+    """Image path of one formatted record, as a '/'-joined string.
+
+    DLC stores it as the index TUPLE ('labeled-data', <animal>, 'img.png'),
+    not a string -- str() on the tuple has no path separator, which is why
+    the first pass put every image in '?'.
+    """
+    v = rec.get("image") if isinstance(rec, dict) else rec
+    if isinstance(v, (list, tuple)):
+        return "/".join(str(x) for x in v)
+    return str(v or "")
 
 
 def animal_of(n):
@@ -81,11 +87,47 @@ n_oor = sum(1 for i in list(train_idx) + list(test_idx)
             if not (0 <= i < len(names)))
 print(f"  indices outside 0..{len(names)-1}: {n_oor}")
 
+# The split indices address the MERGED CollectedData dataframe that
+# create_training_dataset wrote next to this pickle (399 rows), NOT the
+# formatted `data` list (276 records). Indexing `data` with them is a
+# category error: it silently drops every index >= len(data) -- here 123 of
+# them -- and mis-attributes the rest. Load the merged frame and index that.
+merged = sorted(glob.glob(os.path.join(os.path.dirname(doc),
+                                       "CollectedData_*.h5")))
+if not merged:
+    sys.exit(f"no merged CollectedData_*.h5 beside {os.path.basename(doc)}; "
+             "cannot map split indices to images")
+Dm = pd.read_hdf(merged[0])
+print(f"merged collected data: {len(Dm)} rows "
+      f"({os.path.basename(merged[0])})")
+m_animal = [t[-2] if isinstance(t, tuple) else animal_of(t) for t in Dm.index]
+m_name = ["/".join(map(str, t)) if isinstance(t, tuple) else str(t)
+          for t in Dm.index]
+
 rows = []
 for which, ids in (("train", train_idx), ("test", test_idx)):
-    c = Counter(animal_of(names[i]) for i in ids if 0 <= i < len(names))
-    for a, k in c.items():
+    good = [int(i) for i in ids if 0 <= int(i) < len(Dm)]
+    if len(good) != len(ids):
+        print(f"  WARNING: {len(ids)-len(good)} {which} indices outside "
+              f"0..{len(Dm)-1}")
+    for a, k in Counter(m_animal[i] for i in good).items():
         rows.append({"animal": a, "split": which, "n": k})
+
+# Which labelled frames never reached the formatted training records, and
+# why -- a row with any NaN among the parts is the usual reason.
+formatted = set(names)
+missing = [n for n in m_name if n not in formatted]
+print(f"\n{len(formatted)} of {len(Dm)} labelled frames reached the "
+      f"formatted training records; {len(missing)} did not")
+if missing:
+    print("  dropped per animal:",
+          dict(Counter(n.split("/")[-2] for n in missing)))
+    nan_any = Dm.isna().any(axis=1).to_numpy()
+    drop_mask = np.array([n not in formatted for n in m_name])
+    print(f"  of the {drop_mask.sum()} dropped, "
+          f"{int((nan_any & drop_mask).sum())} have at least one NaN label")
+    print(f"  of the {(~drop_mask).sum()} kept, "
+          f"{int((nan_any & ~drop_mask).sum())} have at least one NaN label")
 T = (pd.DataFrame(rows).pivot_table(index="animal", columns="split",
                                     values="n", fill_value=0, aggfunc="sum")
      if rows else pd.DataFrame())
