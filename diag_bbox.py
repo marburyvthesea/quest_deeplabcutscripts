@@ -49,11 +49,15 @@ def main():
     vis = np.isfinite(X) & np.isfinite(Y)
     nvis = vis.sum(1)
 
-    with np.errstate(invalid="ignore"):
-        w = np.nanmax(np.where(vis, X, np.nan), 1) - \
-            np.nanmin(np.where(vis, X, np.nan), 1) + 2 * a.margin
-        h = np.nanmax(np.where(vis, Y, np.nan), 1) - \
-            np.nanmin(np.where(vis, Y, np.nan), 1) + 2 * a.margin
+    # Frames with no labelled part at all have no extent; nanmax over an
+    # all-NaN row is NaN-with-a-warning rather than an error, so mask them
+    # out explicitly instead of letting the warning stand in for the result.
+    has = nvis > 0
+    w = np.full(len(D), np.nan)
+    h = np.full(len(D), np.nan)
+    Xv, Yv = np.where(vis, X, np.nan), np.where(vis, Y, np.nan)
+    w[has] = (np.nanmax(Xv[has], 1) - np.nanmin(Xv[has], 1)) + 2 * a.margin
+    h[has] = (np.nanmax(Yv[has], 1) - np.nanmin(Yv[has], 1)) + 2 * a.margin
     diag = np.hypot(w, h)
     animal = np.array([t[-2] if isinstance(t, tuple) else "?" for t in D.index])
 
@@ -82,9 +86,26 @@ def main():
         tiny = part & (diag < 0.5 * np.nanmedian(diag[full]))
         print(f"boxes under half the typical size: {int(tiny.sum())} "
               f"({100*tiny.mean():.1f}% of all frames)")
-    print("\nper-animal partial-label counts:",
-          {k: int(v) for k, v in
-           pd.Series(animal[part]).value_counts().items()} if part.any() else {})
+    # The real finding is bimodal: frames are either fully labelled or not
+    # labelled at all. An unlabelled frame is not neutral -- it sits in the
+    # train/test split as an image with no object, which for a top-down
+    # model trains the detector NOT to fire on a visible animal.
+    empty = nvis == 0
+    A = pd.DataFrame({"animal": animal, "empty": empty, "full": full})
+    G = A.groupby("animal").agg(frames=("empty", "size"),
+                                unlabelled=("empty", "sum"),
+                                labelled=("full", "sum"))
+    G["pct_unlabelled"] = (100 * G.unlabelled / G.frames).round(1)
+    print("\n=== labelling status per video")
+    print(G.sort_values("pct_unlabelled", ascending=False).to_string())
+    print(f"\nTOTAL unlabelled: {int(empty.sum())}/{len(D)} "
+          f"({100*empty.mean():.1f}%) -- these carry no bounding box and "
+          "act as negative images for the detector")
+    G.to_csv("labelling_status.csv")
+    if part.any():
+        print("per-animal partial-label counts:",
+              {k: int(v) for k, v in
+               pd.Series(animal[part]).value_counts().items()})
 
     import matplotlib
     matplotlib.use("Agg")
